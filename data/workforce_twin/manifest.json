@@ -1,0 +1,17 @@
+{
+  "created_at_utc": "2026-08-31T12:42:49.437152+00:00",
+  "config_path": "configs/workforce_twin.json",
+  "config_sha256": "8671a620ad5c7581da0434df83e46e7a92e6225e927cf3ff109b0d30fcb63f0d",
+  "architecture_count": 5,
+  "scenario_count": 6,
+  "seed_count": 6,
+  "operating_day_runs": 180,
+  "event_records": 37135,
+  "capacity_planning": {
+    "target_reviewer_utilization": 0.85,
+    "maximum_p95_review_wait_minutes": 10.0,
+    "maximum_nominal_reviewers": 12
+  },
+  "evidence_class": "synthetic discrete-event simulation",
+  "claim_boundary": "Architecture comparison under explicit planning assumptions; not forecast, measured ROI, staffing commitment, or production safety evidence."
+}

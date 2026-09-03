@@ -1,0 +1,68 @@
+{
+  "black_friday": {
+    "architecture": "governed_hybrid",
+    "display_name": "Gateway-governed hybrid",
+    "guardrails_passed": false,
+    "decision_score": 0.516454,
+    "safe_completion_rate": 0.538532,
+    "critical_bypass_rate": 0.005441,
+    "p95_cycle_minutes": 828.881,
+    "cost_per_safe_completion": 1.106077,
+    "selection_rule": "highest weighted decision score; no architecture passed every guardrail"
+  },
+  "model_migration": {
+    "architecture": "tiered_hybrid",
+    "display_name": "Tiered human-AI",
+    "guardrails_passed": false,
+    "decision_score": 0.738945,
+    "safe_completion_rate": 0.67452,
+    "critical_bypass_rate": 0.045206,
+    "p95_cycle_minutes": 25.563,
+    "cost_per_safe_completion": 0.734747,
+    "selection_rule": "highest weighted decision score; no architecture passed every guardrail"
+  },
+  "normal_day": {
+    "architecture": "governed_hybrid",
+    "display_name": "Gateway-governed hybrid",
+    "guardrails_passed": true,
+    "decision_score": 0.702205,
+    "safe_completion_rate": 0.700709,
+    "critical_bypass_rate": 0.006037,
+    "p95_cycle_minutes": 25.649,
+    "cost_per_safe_completion": 0.716603,
+    "selection_rule": "highest weighted decision score among guardrail-passing architectures"
+  },
+  "prompt_attack_wave": {
+    "architecture": "governed_hybrid",
+    "display_name": "Gateway-governed hybrid",
+    "guardrails_passed": false,
+    "decision_score": 0.70614,
+    "safe_completion_rate": 0.620635,
+    "critical_bypass_rate": 0.005385,
+    "p95_cycle_minutes": 39.49,
+    "cost_per_safe_completion": 0.814801,
+    "selection_rule": "highest weighted decision score; no architecture passed every guardrail"
+  },
+  "reviewer_shortage": {
+    "architecture": "governed_hybrid",
+    "display_name": "Gateway-governed hybrid",
+    "guardrails_passed": false,
+    "decision_score": 0.514827,
+    "safe_completion_rate": 0.602917,
+    "critical_bypass_rate": 0.003058,
+    "p95_cycle_minutes": 505.177,
+    "cost_per_safe_completion": 1.063242,
+    "selection_rule": "highest weighted decision score; no architecture passed every guardrail"
+  },
+  "tool_outage": {
+    "architecture": "tiered_hybrid",
+    "display_name": "Tiered human-AI",
+    "guardrails_passed": false,
+    "decision_score": 0.695828,
+    "safe_completion_rate": 0.646662,
+    "critical_bypass_rate": 0.015308,
+    "p95_cycle_minutes": 34.78,
+    "cost_per_safe_completion": 0.763925,
+    "selection_rule": "highest weighted decision score; no architecture passed every guardrail"
+  }
+}
