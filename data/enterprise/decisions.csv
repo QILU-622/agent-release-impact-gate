@@ -1,0 +1,11 @@
+request_id,workflow,tool_name,agent_id,outcome,risk_tier,reason_codes,created_at
+demo-request-010,it_access,grant_permission,security-agent,review,critical,['HUMAN_APPROVAL_REQUIRED'],2026-08-28T09:00:13+00:00
+demo-request-009,it_access,grant_permission,security-agent,deny,critical,['ACCESS_EXPIRATION_REQUIRED'],2026-08-28T09:00:12+00:00
+demo-request-008,it_access,verify_identity,identity-agent,allow,medium,['POLICY_CHECKS_PASSED'],2026-08-28T09:00:09+00:00
+demo-request-007,data_export,export_customer_data,data-agent,review,critical,['HUMAN_APPROVAL_REQUIRED'],2026-08-28T09:00:08+00:00
+demo-request-006,data_export,export_customer_data,data-agent,deny,critical,['PII_REDACTION_REQUIRED'],2026-08-28T09:00:07+00:00
+demo-request-005,email,send_email,email-agent,deny,high,['UNTRUSTED_CONTEXT_WRITE'],2026-08-28T09:00:06+00:00
+demo-request-004,email,send_email,email-agent,deny,high,['DRAFT_INTENT_CANNOT_SEND'],2026-08-28T09:00:05+00:00
+demo-request-003,refund,refund_order,refund-agent,deny,high,['EXPLICIT_USER_CONFIRMATION_REQUIRED'],2026-08-28T09:00:04+00:00
+demo-request-002,refund,refund_order,refund-agent,review,high,['HUMAN_APPROVAL_REQUIRED'],2026-08-28T09:00:03+00:00
+demo-request-001,refund,get_order,support-agent,allow,low,['POLICY_CHECKS_PASSED'],2026-08-28T09:00:00+00:00

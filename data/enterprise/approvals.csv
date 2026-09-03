@@ -1,0 +1,4 @@
+approval_id,request_id,tenant_id,status,required_role,requester_subject,decided_by,reason,created_at,decided_at
+apr_efa50319d9e145538afbe3e5bd5d780d,demo-request-010,acme-demo,approved,security_approver,security-agent,security-reviewer,Time-bounded admin access approved for named deployment,2026-08-28T09:00:13+00:00,2026-08-28T09:00:18+00:00
+apr_9dac536a13024115a1925c76d0ed5d5c,demo-request-007,acme-demo,rejected,compliance_approver,data-agent,compliance-reviewer,Export purpose valid but requested field set exceeds minimum necessary data,2026-08-28T09:00:08+00:00,2026-08-28T09:00:17+00:00
+apr_d764c03aafe447fa9696b913deeffbf0,demo-request-002,acme-demo,approved,finance_approver,refund-agent,finance-reviewer,Refund amount and explicit user confirmation verified,2026-08-28T09:00:03+00:00,2026-08-28T09:00:14+00:00

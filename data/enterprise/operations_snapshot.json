@@ -1,0 +1,447 @@
+{
+  "decisions": [
+    {
+      "request_id": "demo-request-010",
+      "workflow": "it_access",
+      "tool_name": "grant_permission",
+      "agent_id": "security-agent",
+      "outcome": "review",
+      "risk_tier": "critical",
+      "reason_codes": [
+        "HUMAN_APPROVAL_REQUIRED"
+      ],
+      "created_at": "2026-08-28T09:00:13+00:00"
+    },
+    {
+      "request_id": "demo-request-009",
+      "workflow": "it_access",
+      "tool_name": "grant_permission",
+      "agent_id": "security-agent",
+      "outcome": "deny",
+      "risk_tier": "critical",
+      "reason_codes": [
+        "ACCESS_EXPIRATION_REQUIRED"
+      ],
+      "created_at": "2026-08-28T09:00:12+00:00"
+    },
+    {
+      "request_id": "demo-request-008",
+      "workflow": "it_access",
+      "tool_name": "verify_identity",
+      "agent_id": "identity-agent",
+      "outcome": "allow",
+      "risk_tier": "medium",
+      "reason_codes": [
+        "POLICY_CHECKS_PASSED"
+      ],
+      "created_at": "2026-08-28T09:00:09+00:00"
+    },
+    {
+      "request_id": "demo-request-007",
+      "workflow": "data_export",
+      "tool_name": "export_customer_data",
+      "agent_id": "data-agent",
+      "outcome": "review",
+      "risk_tier": "critical",
+      "reason_codes": [
+        "HUMAN_APPROVAL_REQUIRED"
+      ],
+      "created_at": "2026-08-28T09:00:08+00:00"
+    },
+    {
+      "request_id": "demo-request-006",
+      "workflow": "data_export",
+      "tool_name": "export_customer_data",
+      "agent_id": "data-agent",
+      "outcome": "deny",
+      "risk_tier": "critical",
+      "reason_codes": [
+        "PII_REDACTION_REQUIRED"
+      ],
+      "created_at": "2026-08-28T09:00:07+00:00"
+    },
+    {
+      "request_id": "demo-request-005",
+      "workflow": "email",
+      "tool_name": "send_email",
+      "agent_id": "email-agent",
+      "outcome": "deny",
+      "risk_tier": "high",
+      "reason_codes": [
+        "UNTRUSTED_CONTEXT_WRITE"
+      ],
+      "created_at": "2026-08-28T09:00:06+00:00"
+    },
+    {
+      "request_id": "demo-request-004",
+      "workflow": "email",
+      "tool_name": "send_email",
+      "agent_id": "email-agent",
+      "outcome": "deny",
+      "risk_tier": "high",
+      "reason_codes": [
+        "DRAFT_INTENT_CANNOT_SEND"
+      ],
+      "created_at": "2026-08-28T09:00:05+00:00"
+    },
+    {
+      "request_id": "demo-request-003",
+      "workflow": "refund",
+      "tool_name": "refund_order",
+      "agent_id": "refund-agent",
+      "outcome": "deny",
+      "risk_tier": "high",
+      "reason_codes": [
+        "EXPLICIT_USER_CONFIRMATION_REQUIRED"
+      ],
+      "created_at": "2026-08-28T09:00:04+00:00"
+    },
+    {
+      "request_id": "demo-request-002",
+      "workflow": "refund",
+      "tool_name": "refund_order",
+      "agent_id": "refund-agent",
+      "outcome": "review",
+      "risk_tier": "high",
+      "reason_codes": [
+        "HUMAN_APPROVAL_REQUIRED"
+      ],
+      "created_at": "2026-08-28T09:00:03+00:00"
+    },
+    {
+      "request_id": "demo-request-001",
+      "workflow": "refund",
+      "tool_name": "get_order",
+      "agent_id": "support-agent",
+      "outcome": "allow",
+      "risk_tier": "low",
+      "reason_codes": [
+        "POLICY_CHECKS_PASSED"
+      ],
+      "created_at": "2026-08-28T09:00:00+00:00"
+    }
+  ],
+  "approvals": [
+    {
+      "approval_id": "apr_efa50319d9e145538afbe3e5bd5d780d",
+      "request_id": "demo-request-010",
+      "tenant_id": "acme-demo",
+      "status": "approved",
+      "required_role": "security_approver",
+      "requester_subject": "security-agent",
+      "decided_by": "security-reviewer",
+      "reason": "Time-bounded admin access approved for named deployment",
+      "created_at": "2026-08-28T09:00:13+00:00",
+      "decided_at": "2026-08-28T09:00:18+00:00"
+    },
+    {
+      "approval_id": "apr_9dac536a13024115a1925c76d0ed5d5c",
+      "request_id": "demo-request-007",
+      "tenant_id": "acme-demo",
+      "status": "rejected",
+      "required_role": "compliance_approver",
+      "requester_subject": "data-agent",
+      "decided_by": "compliance-reviewer",
+      "reason": "Export purpose valid but requested field set exceeds minimum necessary data",
+      "created_at": "2026-08-28T09:00:08+00:00",
+      "decided_at": "2026-08-28T09:00:17+00:00"
+    },
+    {
+      "approval_id": "apr_d764c03aafe447fa9696b913deeffbf0",
+      "request_id": "demo-request-002",
+      "tenant_id": "acme-demo",
+      "status": "approved",
+      "required_role": "finance_approver",
+      "requester_subject": "refund-agent",
+      "decided_by": "finance-reviewer",
+      "reason": "Refund amount and explicit user confirmation verified",
+      "created_at": "2026-08-28T09:00:03+00:00",
+      "decided_at": "2026-08-28T09:00:14+00:00"
+    }
+  ],
+  "events": [
+    {
+      "event_id": 21,
+      "tenant_id": "acme-demo",
+      "event_type": "execution_result_recorded",
+      "entity_id": "demo-request-010",
+      "actor_id": "grant_permission-service",
+      "payload_json": "{\"external_reference\":\"synthetic-demo-request-010\",\"status\":\"succeeded\",\"tool_name\":\"grant_permission\"}",
+      "previous_hash": "42ae1d7639988848cfe96a263cba02f570a778b262ee0f048892fca514fee633",
+      "event_hash": "9c155581a7ff6f4cde379d1d9256f3bfe1a6c71c0dbba31e2db90b99c2f5bbe2",
+      "created_at": "2026-08-28T09:00:20+00:00"
+    },
+    {
+      "event_id": 20,
+      "tenant_id": "acme-demo",
+      "event_type": "grant_consumed",
+      "entity_id": "grt_f1c945622c8b494d8d8aefea35141266",
+      "actor_id": "grant_permission-service",
+      "payload_json": "{\"request_id\":\"demo-request-010\",\"tool_name\":\"grant_permission\"}",
+      "previous_hash": "a7b784e8a3db300ca818c0dcb6b3e03ba201507802a566f4b8bf1a3e505e19b4",
+      "event_hash": "42ae1d7639988848cfe96a263cba02f570a778b262ee0f048892fca514fee633",
+      "created_at": "2026-08-28T09:00:19+00:00"
+    },
+    {
+      "event_id": 19,
+      "tenant_id": "acme-demo",
+      "event_type": "approval_approved",
+      "entity_id": "apr_efa50319d9e145538afbe3e5bd5d780d",
+      "actor_id": "security-reviewer",
+      "payload_json": "{\"grant_issued\":true,\"reason\":\"Time-bounded admin access approved for named deployment\"}",
+      "previous_hash": "7ba62933ba26f9e0b6918b31c0459e6e09a665dac292baafa1f57d93415986ac",
+      "event_hash": "a7b784e8a3db300ca818c0dcb6b3e03ba201507802a566f4b8bf1a3e505e19b4",
+      "created_at": "2026-08-28T09:00:18+00:00"
+    },
+    {
+      "event_id": 18,
+      "tenant_id": "acme-demo",
+      "event_type": "approval_rejected",
+      "entity_id": "apr_9dac536a13024115a1925c76d0ed5d5c",
+      "actor_id": "compliance-reviewer",
+      "payload_json": "{\"grant_issued\":false,\"reason\":\"Export purpose valid but requested field set exceeds minimum necessary data\"}",
+      "previous_hash": "1abc856690ab18a86a9c456838f9ad54fe518330327a24bc3bb2409a2f7ebb95",
+      "event_hash": "7ba62933ba26f9e0b6918b31c0459e6e09a665dac292baafa1f57d93415986ac",
+      "created_at": "2026-08-28T09:00:17+00:00"
+    },
+    {
+      "event_id": 17,
+      "tenant_id": "acme-demo",
+      "event_type": "execution_result_recorded",
+      "entity_id": "demo-request-002",
+      "actor_id": "refund_order-service",
+      "payload_json": "{\"external_reference\":\"synthetic-demo-request-002\",\"status\":\"succeeded\",\"tool_name\":\"refund_order\"}",
+      "previous_hash": "90a1b0759852842e5cfc2f30dfb197da53d38c3088aa98f7fdaa3b74516b2b58",
+      "event_hash": "1abc856690ab18a86a9c456838f9ad54fe518330327a24bc3bb2409a2f7ebb95",
+      "created_at": "2026-08-28T09:00:16+00:00"
+    },
+    {
+      "event_id": 16,
+      "tenant_id": "acme-demo",
+      "event_type": "grant_consumed",
+      "entity_id": "grt_fc0efe6c3035478c9a6f79641c5dc179",
+      "actor_id": "refund_order-service",
+      "payload_json": "{\"request_id\":\"demo-request-002\",\"tool_name\":\"refund_order\"}",
+      "previous_hash": "8fd46ccd77465688d5c86156d1bc7cc45eb3ce629870a5bec5ecc91dd2330680",
+      "event_hash": "90a1b0759852842e5cfc2f30dfb197da53d38c3088aa98f7fdaa3b74516b2b58",
+      "created_at": "2026-08-28T09:00:15+00:00"
+    },
+    {
+      "event_id": 15,
+      "tenant_id": "acme-demo",
+      "event_type": "approval_approved",
+      "entity_id": "apr_d764c03aafe447fa9696b913deeffbf0",
+      "actor_id": "finance-reviewer",
+      "payload_json": "{\"grant_issued\":true,\"reason\":\"Refund amount and explicit user confirmation verified\"}",
+      "previous_hash": "acf6fd53c5a52a8b2caae300ac89797cb06a19041e66ca8d9e0426c3d084f2a0",
+      "event_hash": "8fd46ccd77465688d5c86156d1bc7cc45eb3ce629870a5bec5ecc91dd2330680",
+      "created_at": "2026-08-28T09:00:14+00:00"
+    },
+    {
+      "event_id": 14,
+      "tenant_id": "acme-demo",
+      "event_type": "action_evaluated",
+      "entity_id": "demo-request-010",
+      "actor_id": "security-agent",
+      "payload_json": "{\"outcome\":\"review\",\"policy_version\":\"2026-08-28.1\",\"reason_codes\":[\"HUMAN_APPROVAL_REQUIRED\"],\"tool_name\":\"grant_permission\",\"workflow\":\"it_access\"}",
+      "previous_hash": "9a0c33303a0cec0b85bd57f98fc9b78137907c3bfbce390dc9f90e0ab280e381",
+      "event_hash": "acf6fd53c5a52a8b2caae300ac89797cb06a19041e66ca8d9e0426c3d084f2a0",
+      "created_at": "2026-08-28T09:00:13+00:00"
+    },
+    {
+      "event_id": 13,
+      "tenant_id": "acme-demo",
+      "event_type": "action_evaluated",
+      "entity_id": "demo-request-009",
+      "actor_id": "security-agent",
+      "payload_json": "{\"outcome\":\"deny\",\"policy_version\":\"2026-08-28.1\",\"reason_codes\":[\"ACCESS_EXPIRATION_REQUIRED\"],\"tool_name\":\"grant_permission\",\"workflow\":\"it_access\"}",
+      "previous_hash": "5d6ea3d8e648d8a595c0b71d2e6c255d2039ac039ba330007a24c1bf80dfc7ad",
+      "event_hash": "9a0c33303a0cec0b85bd57f98fc9b78137907c3bfbce390dc9f90e0ab280e381",
+      "created_at": "2026-08-28T09:00:12+00:00"
+    },
+    {
+      "event_id": 12,
+      "tenant_id": "acme-demo",
+      "event_type": "execution_result_recorded",
+      "entity_id": "demo-request-008",
+      "actor_id": "verify_identity-service",
+      "payload_json": "{\"external_reference\":\"synthetic-demo-request-008\",\"status\":\"succeeded\",\"tool_name\":\"verify_identity\"}",
+      "previous_hash": "9e2b3c031fc8bea4777cea2d58855e1b024cd72888533b4a5a79dd1de6d1145f",
+      "event_hash": "5d6ea3d8e648d8a595c0b71d2e6c255d2039ac039ba330007a24c1bf80dfc7ad",
+      "created_at": "2026-08-28T09:00:11+00:00"
+    },
+    {
+      "event_id": 11,
+      "tenant_id": "acme-demo",
+      "event_type": "grant_consumed",
+      "entity_id": "grt_c070c030ab674c079f439836bf2f91a1",
+      "actor_id": "verify_identity-service",
+      "payload_json": "{\"request_id\":\"demo-request-008\",\"tool_name\":\"verify_identity\"}",
+      "previous_hash": "931be67ee9814aa600964079c193c83240bb80e5a2134eeb7972ca2dcb5dc95a",
+      "event_hash": "9e2b3c031fc8bea4777cea2d58855e1b024cd72888533b4a5a79dd1de6d1145f",
+      "created_at": "2026-08-28T09:00:10+00:00"
+    },
+    {
+      "event_id": 10,
+      "tenant_id": "acme-demo",
+      "event_type": "action_evaluated",
+      "entity_id": "demo-request-008",
+      "actor_id": "identity-agent",
+      "payload_json": "{\"outcome\":\"allow\",\"policy_version\":\"2026-08-28.1\",\"reason_codes\":[\"POLICY_CHECKS_PASSED\"],\"tool_name\":\"verify_identity\",\"workflow\":\"it_access\"}",
+      "previous_hash": "471f2befc22741b20dd234a551bf12271d9ae3a4ece6327671eab233654d01f2",
+      "event_hash": "931be67ee9814aa600964079c193c83240bb80e5a2134eeb7972ca2dcb5dc95a",
+      "created_at": "2026-08-28T09:00:09+00:00"
+    },
+    {
+      "event_id": 9,
+      "tenant_id": "acme-demo",
+      "event_type": "action_evaluated",
+      "entity_id": "demo-request-007",
+      "actor_id": "data-agent",
+      "payload_json": "{\"outcome\":\"review\",\"policy_version\":\"2026-08-28.1\",\"reason_codes\":[\"HUMAN_APPROVAL_REQUIRED\"],\"tool_name\":\"export_customer_data\",\"workflow\":\"data_export\"}",
+      "previous_hash": "d473955e57fbb5d1545e8d3357a9dd47e7f43c150fb1ea80fb8f6b4ac242e1d7",
+      "event_hash": "471f2befc22741b20dd234a551bf12271d9ae3a4ece6327671eab233654d01f2",
+      "created_at": "2026-08-28T09:00:08+00:00"
+    },
+    {
+      "event_id": 8,
+      "tenant_id": "acme-demo",
+      "event_type": "action_evaluated",
+      "entity_id": "demo-request-006",
+      "actor_id": "data-agent",
+      "payload_json": "{\"outcome\":\"deny\",\"policy_version\":\"2026-08-28.1\",\"reason_codes\":[\"PII_REDACTION_REQUIRED\"],\"tool_name\":\"export_customer_data\",\"workflow\":\"data_export\"}",
+      "previous_hash": "ddfe9863e88c1540b1703f4463dd899fdb2340ef6f3a175eecfb5f59fd219e75",
+      "event_hash": "d473955e57fbb5d1545e8d3357a9dd47e7f43c150fb1ea80fb8f6b4ac242e1d7",
+      "created_at": "2026-08-28T09:00:07+00:00"
+    },
+    {
+      "event_id": 7,
+      "tenant_id": "acme-demo",
+      "event_type": "action_evaluated",
+      "entity_id": "demo-request-005",
+      "actor_id": "email-agent",
+      "payload_json": "{\"outcome\":\"deny\",\"policy_version\":\"2026-08-28.1\",\"reason_codes\":[\"UNTRUSTED_CONTEXT_WRITE\"],\"tool_name\":\"send_email\",\"workflow\":\"email\"}",
+      "previous_hash": "1ec2ee07cf61b31dbd58c5027b47c39c4f75f9b56300394e208fbc212359fc0a",
+      "event_hash": "ddfe9863e88c1540b1703f4463dd899fdb2340ef6f3a175eecfb5f59fd219e75",
+      "created_at": "2026-08-28T09:00:06+00:00"
+    },
+    {
+      "event_id": 6,
+      "tenant_id": "acme-demo",
+      "event_type": "action_evaluated",
+      "entity_id": "demo-request-004",
+      "actor_id": "email-agent",
+      "payload_json": "{\"outcome\":\"deny\",\"policy_version\":\"2026-08-28.1\",\"reason_codes\":[\"DRAFT_INTENT_CANNOT_SEND\"],\"tool_name\":\"send_email\",\"workflow\":\"email\"}",
+      "previous_hash": "e436ff8af1e3538cdb282b0296a26e0715a0899252e763e3ece0b1718deb1e50",
+      "event_hash": "1ec2ee07cf61b31dbd58c5027b47c39c4f75f9b56300394e208fbc212359fc0a",
+      "created_at": "2026-08-28T09:00:05+00:00"
+    },
+    {
+      "event_id": 5,
+      "tenant_id": "acme-demo",
+      "event_type": "action_evaluated",
+      "entity_id": "demo-request-003",
+      "actor_id": "refund-agent",
+      "payload_json": "{\"outcome\":\"deny\",\"policy_version\":\"2026-08-28.1\",\"reason_codes\":[\"EXPLICIT_USER_CONFIRMATION_REQUIRED\"],\"tool_name\":\"refund_order\",\"workflow\":\"refund\"}",
+      "previous_hash": "144f662ec323f7d18ff78efd403eea4792ead49327c8acc28a5f395a2adc7195",
+      "event_hash": "e436ff8af1e3538cdb282b0296a26e0715a0899252e763e3ece0b1718deb1e50",
+      "created_at": "2026-08-28T09:00:04+00:00"
+    },
+    {
+      "event_id": 4,
+      "tenant_id": "acme-demo",
+      "event_type": "action_evaluated",
+      "entity_id": "demo-request-002",
+      "actor_id": "refund-agent",
+      "payload_json": "{\"outcome\":\"review\",\"policy_version\":\"2026-08-28.1\",\"reason_codes\":[\"HUMAN_APPROVAL_REQUIRED\"],\"tool_name\":\"refund_order\",\"workflow\":\"refund\"}",
+      "previous_hash": "d54f582628d1e20c579860a52eb12cb91844508bcc49ec42724427a02be85e27",
+      "event_hash": "144f662ec323f7d18ff78efd403eea4792ead49327c8acc28a5f395a2adc7195",
+      "created_at": "2026-08-28T09:00:03+00:00"
+    },
+    {
+      "event_id": 3,
+      "tenant_id": "acme-demo",
+      "event_type": "execution_result_recorded",
+      "entity_id": "demo-request-001",
+      "actor_id": "get_order-service",
+      "payload_json": "{\"external_reference\":\"synthetic-demo-request-001\",\"status\":\"succeeded\",\"tool_name\":\"get_order\"}",
+      "previous_hash": "35c31c2e06d0b9c79615ae35f5e416c134e743a76ccb49d7e17315d63e0ca0b7",
+      "event_hash": "d54f582628d1e20c579860a52eb12cb91844508bcc49ec42724427a02be85e27",
+      "created_at": "2026-08-28T09:00:02+00:00"
+    },
+    {
+      "event_id": 2,
+      "tenant_id": "acme-demo",
+      "event_type": "grant_consumed",
+      "entity_id": "grt_3a9ec0f06c744a41aac683b6847c7720",
+      "actor_id": "get_order-service",
+      "payload_json": "{\"request_id\":\"demo-request-001\",\"tool_name\":\"get_order\"}",
+      "previous_hash": "e3dfd3b01f64249de2a5cb833e23b399e604811040b18f5199209845e88a1aa2",
+      "event_hash": "35c31c2e06d0b9c79615ae35f5e416c134e743a76ccb49d7e17315d63e0ca0b7",
+      "created_at": "2026-08-28T09:00:01+00:00"
+    },
+    {
+      "event_id": 1,
+      "tenant_id": "acme-demo",
+      "event_type": "action_evaluated",
+      "entity_id": "demo-request-001",
+      "actor_id": "support-agent",
+      "payload_json": "{\"outcome\":\"allow\",\"policy_version\":\"2026-08-28.1\",\"reason_codes\":[\"POLICY_CHECKS_PASSED\"],\"tool_name\":\"get_order\",\"workflow\":\"refund\"}",
+      "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "event_hash": "e3dfd3b01f64249de2a5cb833e23b399e604811040b18f5199209845e88a1aa2",
+      "created_at": "2026-08-28T09:00:00+00:00"
+    }
+  ],
+  "execution_results": [
+    {
+      "tenant_id": "acme-demo",
+      "request_id": "demo-request-010",
+      "tool_name": "grant_permission",
+      "status": "succeeded",
+      "external_reference": "synthetic-demo-request-010",
+      "detail": "Synthetic demo tool result",
+      "recorded_by": "grant_permission-service",
+      "recorded_at": "2026-08-28T09:00:20Z",
+      "idempotent_replay": false
+    },
+    {
+      "tenant_id": "acme-demo",
+      "request_id": "demo-request-002",
+      "tool_name": "refund_order",
+      "status": "succeeded",
+      "external_reference": "synthetic-demo-request-002",
+      "detail": "Synthetic demo tool result",
+      "recorded_by": "refund_order-service",
+      "recorded_at": "2026-08-28T09:00:16Z",
+      "idempotent_replay": false
+    },
+    {
+      "tenant_id": "acme-demo",
+      "request_id": "demo-request-008",
+      "tool_name": "verify_identity",
+      "status": "succeeded",
+      "external_reference": "synthetic-demo-request-008",
+      "detail": "Synthetic demo tool result",
+      "recorded_by": "verify_identity-service",
+      "recorded_at": "2026-08-28T09:00:11Z",
+      "idempotent_replay": false
+    },
+    {
+      "tenant_id": "acme-demo",
+      "request_id": "demo-request-001",
+      "tool_name": "get_order",
+      "status": "succeeded",
+      "external_reference": "synthetic-demo-request-001",
+      "detail": "Synthetic demo tool result",
+      "recorded_by": "get_order-service",
+      "recorded_at": "2026-08-28T09:00:02Z",
+      "idempotent_replay": false
+    }
+  ],
+  "integrity": {
+    "tenant_id": "acme-demo",
+    "valid": true,
+    "events_checked": 21,
+    "first_invalid_event_id": null
+  }
+}
