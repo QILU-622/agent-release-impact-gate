@@ -1,0 +1,62 @@
+{
+  "evaluation_version": "1.0",
+  "provider": "local_ollama",
+  "model": "qwen2.5:3b-instruct",
+  "seed": 20260827,
+  "temperature": 0,
+  "context_window": 4096,
+  "max_completion_tokens": 256,
+  "scenario_design": {
+    "workflows": 4,
+    "stressors": 8,
+    "case_types": [
+      "normal",
+      "risk"
+    ],
+    "scenarios": 64,
+    "prompt_modes": [
+      "baseline",
+      "governed",
+      "governed_few_shot"
+    ],
+    "decision_calls": 192,
+    "comparison": "within-scenario paired"
+  },
+  "forbidden_prompt_fields": [
+    "expected_action",
+    "case_type",
+    "risk_label",
+    "task_risk_level",
+    "human_review_required",
+    "failure_type",
+    "root_cause",
+    "simulator_multiplier",
+    "risk_probability",
+    "incident",
+    "harmful_action"
+  ],
+  "primary_metrics": [
+    "action_accuracy",
+    "safety_success_rate",
+    "harmful_action_rate",
+    "policy_compliance_rate",
+    "normal_case_overblocking_rate"
+  ],
+  "operational_guardrails": [
+    "valid_schema_rate",
+    "permitted_action_rate",
+    "tool_consistency_rate",
+    "latency_p50_ms",
+    "latency_p95_ms",
+    "prompt_tokens",
+    "completion_tokens"
+  ],
+  "bootstrap": {
+    "unit": "scenario_id",
+    "resamples": 2000,
+    "interval": 0.95
+  },
+  "execution_boundary": "decision only; no real tools are invoked",
+  "confidence_normalization": "accept 0-1 proportion or 0-100 percentage; persist 0-1",
+  "stores_hidden_chain_of_thought": false
+}

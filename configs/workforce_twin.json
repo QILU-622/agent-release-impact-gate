@@ -1,0 +1,186 @@
+{
+  "version": "1.0",
+  "simulation_minutes": 480,
+  "base_arrival_rate_per_minute": 0.32,
+  "seeds": [20260828, 20260829, 20260830, 20260831, 20260901, 20260902],
+  "workflow_mix": {
+    "refund": 0.4,
+    "email": 0.25,
+    "data_export": 0.2,
+    "it_access": 0.15
+  },
+  "sla_minutes": {
+    "refund": 30,
+    "email": 20,
+    "data_export": 60,
+    "it_access": 45
+  },
+  "human_cost_units_per_minute": 0.08,
+  "architectures": {
+    "solo_generalist": {
+      "display_name": "Solo generalist",
+      "description": "A shared generalist pool handles every workflow with only mandatory review.",
+      "agent_workers": 3,
+      "reviewer_workers": 1,
+      "mean_agent_minutes": 4.0,
+      "mean_review_minutes": 7.0,
+      "model_cost_units_per_case": 0.06,
+      "risk_multiplier": 1.18,
+      "completion_multiplier": 0.96,
+      "baseline_overblock_rate": 0.015,
+      "unsafe_proposal_interception_rate": 0.0,
+      "review_high_risk": false,
+      "controls": []
+    },
+    "specialist_mesh": {
+      "display_name": "Specialist mesh",
+      "description": "Workflow specialists improve decisions but add handoff time.",
+      "agent_workers": 4,
+      "reviewer_workers": 1,
+      "mean_agent_minutes": 5.0,
+      "mean_review_minutes": 7.0,
+      "model_cost_units_per_case": 0.09,
+      "risk_multiplier": 0.86,
+      "completion_multiplier": 1.03,
+      "baseline_overblock_rate": 0.025,
+      "unsafe_proposal_interception_rate": 0.05,
+      "review_high_risk": false,
+      "controls": ["context_envelope"]
+    },
+    "manager_mesh": {
+      "display_name": "Manager + specialists",
+      "description": "A routing manager coordinates specialists and escalates ambiguous work.",
+      "agent_workers": 4,
+      "reviewer_workers": 2,
+      "mean_agent_minutes": 5.8,
+      "mean_review_minutes": 6.5,
+      "model_cost_units_per_case": 0.14,
+      "risk_multiplier": 0.76,
+      "completion_multiplier": 1.05,
+      "baseline_overblock_rate": 0.04,
+      "unsafe_proposal_interception_rate": 0.55,
+      "review_high_risk": true,
+      "controls": ["context_envelope", "human_review_gate"]
+    },
+    "tiered_hybrid": {
+      "display_name": "Tiered human-AI",
+      "description": "Small models handle routine work; exceptions move to a stronger model or human.",
+      "agent_workers": 5,
+      "reviewer_workers": 2,
+      "mean_agent_minutes": 4.3,
+      "mean_review_minutes": 6.0,
+      "model_cost_units_per_case": 0.1,
+      "risk_multiplier": 0.72,
+      "completion_multiplier": 1.06,
+      "baseline_overblock_rate": 0.035,
+      "unsafe_proposal_interception_rate": 0.7,
+      "review_high_risk": true,
+      "controls": ["context_envelope", "tool_version_lock", "human_review_gate"]
+    },
+    "governed_hybrid": {
+      "display_name": "Gateway-governed hybrid",
+      "description": "Tiered agents propose actions; the Action Gateway controls execution.",
+      "agent_workers": 5,
+      "reviewer_workers": 2,
+      "mean_agent_minutes": 4.6,
+      "mean_review_minutes": 6.0,
+      "model_cost_units_per_case": 0.11,
+      "risk_multiplier": 0.62,
+      "completion_multiplier": 1.01,
+      "baseline_overblock_rate": 0.055,
+      "unsafe_proposal_interception_rate": 0.97,
+      "review_high_risk": true,
+      "controls": [
+        "context_envelope",
+        "tool_version_lock",
+        "permission_scope",
+        "human_review_gate"
+      ]
+    }
+  },
+  "scenarios": {
+    "normal_day": {
+      "display_name": "Normal day",
+      "description": "Expected volume with no injected operational shock.",
+      "stressor": "none",
+      "demand_multiplier": 1.0,
+      "risk_multiplier": 1.0,
+      "completion_multiplier": 1.0,
+      "service_multiplier": 1.0,
+      "review_time_multiplier": 1.0,
+      "reviewer_capacity_multiplier": 1.0,
+      "tool_delay_minutes": 0.0
+    },
+    "black_friday": {
+      "display_name": "Black Friday surge",
+      "description": "Demand triples while the review queue is under pressure.",
+      "stressor": "review_bottleneck",
+      "demand_multiplier": 3.0,
+      "risk_multiplier": 1.08,
+      "completion_multiplier": 0.98,
+      "service_multiplier": 1.08,
+      "review_time_multiplier": 1.25,
+      "reviewer_capacity_multiplier": 1.0,
+      "tool_delay_minutes": 0.0
+    },
+    "prompt_attack_wave": {
+      "display_name": "Prompt attack wave",
+      "description": "Untrusted external content attempts to trigger business-tool actions.",
+      "stressor": "external_injection",
+      "demand_multiplier": 1.2,
+      "risk_multiplier": 1.2,
+      "completion_multiplier": 0.98,
+      "service_multiplier": 1.08,
+      "review_time_multiplier": 1.0,
+      "reviewer_capacity_multiplier": 1.0,
+      "tool_delay_minutes": 0.0
+    },
+    "model_migration": {
+      "display_name": "Model migration drift",
+      "description": "A model change weakens policy following until regression gaps are fixed.",
+      "stressor": "policy_drop",
+      "demand_multiplier": 1.0,
+      "risk_multiplier": 1.18,
+      "completion_multiplier": 0.94,
+      "service_multiplier": 1.05,
+      "review_time_multiplier": 1.0,
+      "reviewer_capacity_multiplier": 1.0,
+      "tool_delay_minutes": 0.0
+    },
+    "tool_outage": {
+      "display_name": "Tool outage",
+      "description": "A degraded business tool adds delay and lowers completion reliability.",
+      "stressor": "tool_drift",
+      "demand_multiplier": 1.0,
+      "risk_multiplier": 1.0,
+      "completion_multiplier": 0.82,
+      "service_multiplier": 1.1,
+      "review_time_multiplier": 1.0,
+      "reviewer_capacity_multiplier": 1.0,
+      "tool_delay_minutes": 9.0
+    },
+    "reviewer_shortage": {
+      "display_name": "Reviewer shortage",
+      "description": "Half the planned reviewer capacity is available.",
+      "stressor": "review_bottleneck",
+      "demand_multiplier": 1.0,
+      "risk_multiplier": 1.0,
+      "completion_multiplier": 0.98,
+      "service_multiplier": 1.0,
+      "review_time_multiplier": 1.35,
+      "reviewer_capacity_multiplier": 0.5,
+      "tool_delay_minutes": 0.0
+    }
+  },
+  "decision_guardrails": {
+    "minimum_safe_completion_rate": 0.7,
+    "maximum_critical_bypass_rate": 0.03,
+    "maximum_reviewer_utilization": 0.95,
+    "maximum_normal_overblock_rate": 0.2
+  },
+  "capacity_planning": {
+    "target_reviewer_utilization": 0.85,
+    "maximum_p95_review_wait_minutes": 10.0,
+    "maximum_nominal_reviewers": 12
+  }
+}
