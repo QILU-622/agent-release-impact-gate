@@ -1,0 +1,39 @@
+{
+  "generated_at_utc": "2026-08-31T12:45:47.172319+00:00",
+  "status": "blocked",
+  "blockers": [
+    "No customer- or workflow-specific external Agent evaluation was imported.",
+    "No validated external shadow-pilot package is present."
+  ],
+  "warnings": [
+    "All workforce demand, service, cost, and capacity inputs remain synthetic."
+  ],
+  "ready": [
+    "Digital twin produced 37,135 event records with a frozen configuration hash.",
+    "Cross-model sensitivity evidence is present for 2 model(s)."
+  ],
+  "checks": [
+    {
+      "check": "Operating-model simulation",
+      "status": "ready",
+      "summary": "Reproducible paired simulation and reviewer-capacity plan are present."
+    },
+    {
+      "check": "Model sensitivity",
+      "status": "ready",
+      "summary": "Local cross-model behavior results are available."
+    },
+    {
+      "check": "External Agent evaluation",
+      "status": "blocked",
+      "summary": "Import a Promptfoo, DeepEval, or canonical JSON result artifact."
+    },
+    {
+      "check": "External workflow calibration",
+      "status": "blocked",
+      "summary": "Synthetic examples cannot support a real-customer or realized-impact claim."
+    }
+  ],
+  "external_evaluation": null,
+  "claim_boundary": "Readiness describes evidence coverage for a controlled shadow pilot. It is not production authorization, a staffing commitment, measured ROI, or certification."
+}
