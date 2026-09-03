@@ -1,0 +1,62 @@
+{
+  "benchmark_tasks": 200,
+  "experiment_runs": 12800,
+  "workflows": [
+    "data_export",
+    "email",
+    "it_access",
+    "refund"
+  ],
+  "stressors": [
+    "none",
+    "policy_drop",
+    "tool_drift",
+    "context_contamination",
+    "external_injection",
+    "permission_overgrant",
+    "review_bottleneck",
+    "memory_poisoning"
+  ],
+  "control_configurations": [
+    "none",
+    "context_envelope",
+    "tool_version_lock",
+    "permission_scope",
+    "human_review_gate",
+    "rollback_hook",
+    "external_isolation",
+    "recommended_bundle"
+  ],
+  "seed": 20260827,
+  "result_type": "synthetic_simulation_offline_models_and_real_local_llm_evaluation",
+  "offline_model_evaluation": {
+    "dataset_rows": 12800,
+    "task_group_split": true,
+    "real_llm_results": true,
+    "evaluation_tasks": 4,
+    "feature_access_audit": true
+  },
+  "control_science": {
+    "portfolios_evaluated": 64,
+    "stressed_runs_per_portfolio": 1400,
+    "seed_sensitivity_runs": 12
+  },
+  "real_llm_evaluation": {
+    "model": "qwen2.5:3b-instruct",
+    "scenarios": 64,
+    "paired_decisions": 192,
+    "prompt_modes": [
+      "baseline",
+      "governed",
+      "governed_few_shot"
+    ],
+    "temperature": 0
+  },
+  "mechanism_analysis": {
+    "scenario_transitions": 64,
+    "simulator_to_llm_join_rows": 192,
+    "bootstrap_samples": 2000,
+    "few_shot_safety_regressions": 18,
+    "safety_regressions_with_accuracy_gain": 0
+  }
+}

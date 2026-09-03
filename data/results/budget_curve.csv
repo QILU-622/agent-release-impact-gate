@@ -1,0 +1,22 @@
+budget,controls,cost,risk_reduction,residual_risk,estimated_completion,estimated_review_load,method
+0,,0.0,0.0,0.622143,0.901429,0.276429,exhaustive search over measured single-control effects
+5,tool_version_lock,5.0,0.063571,0.558571,0.893429,0.276429,exhaustive search over measured single-control effects
+10,permission_scope,10.0,0.089286,0.532857,0.883429,0.276429,exhaustive search over measured single-control effects
+15,"tool_version_lock, permission_scope",15.0,0.143734,0.478409,0.875429,0.276429,exhaustive search over measured single-control effects
+20,"context_envelope, tool_version_lock",17.0,0.186701,0.435442,0.883429,0.276429,exhaustive search over measured single-control effects
+25,"context_envelope, permission_scope",22.0,0.206747,0.415396,0.873429,0.276429,exhaustive search over measured single-control effects
+30,"context_envelope, tool_version_lock, permission_scope",27.0,0.249193,0.37295,0.865429,0.276429,exhaustive search over measured single-control effects
+35,"context_envelope, tool_version_lock, external_isolation",31.0,0.255692,0.366451,0.869429,0.276429,exhaustive search over measured single-control effects
+40,"context_envelope, permission_scope, external_isolation",36.0,0.272562,0.349581,0.859429,0.276429,exhaustive search over measured single-control effects
+45,"context_envelope, tool_version_lock, permission_scope, external_isolation",41.0,0.308282,0.313861,0.851429,0.276429,exhaustive search over measured single-control effects
+50,"context_envelope, tool_version_lock, permission_scope, external_isolation",41.0,0.308282,0.313861,0.851429,0.276429,exhaustive search over measured single-control effects
+55,"context_envelope, tool_version_lock, permission_scope, external_isolation",41.0,0.308282,0.313861,0.851429,0.276429,exhaustive search over measured single-control effects
+60,"context_envelope, tool_version_lock, permission_scope, external_isolation",41.0,0.308282,0.313861,0.851429,0.276429,exhaustive search over measured single-control effects
+65,"context_envelope, tool_version_lock, permission_scope, external_isolation",41.0,0.308282,0.313861,0.851429,0.276429,exhaustive search over measured single-control effects
+70,"context_envelope, tool_version_lock, permission_scope, external_isolation",41.0,0.308282,0.313861,0.851429,0.276429,exhaustive search over measured single-control effects
+75,"context_envelope, tool_version_lock, permission_scope, external_isolation",41.0,0.308282,0.313861,0.851429,0.276429,exhaustive search over measured single-control effects
+80,"context_envelope, tool_version_lock, permission_scope, external_isolation",41.0,0.308282,0.313861,0.851429,0.276429,exhaustive search over measured single-control effects
+85,"context_envelope, tool_version_lock, permission_scope, external_isolation",41.0,0.308282,0.313861,0.851429,0.276429,exhaustive search over measured single-control effects
+90,"context_envelope, tool_version_lock, permission_scope, external_isolation",41.0,0.308282,0.313861,0.851429,0.276429,exhaustive search over measured single-control effects
+95,"context_envelope, tool_version_lock, permission_scope, external_isolation",41.0,0.308282,0.313861,0.851429,0.276429,exhaustive search over measured single-control effects
+100,"context_envelope, tool_version_lock, permission_scope, external_isolation",41.0,0.308282,0.313861,0.851429,0.276429,exhaustive search over measured single-control effects
