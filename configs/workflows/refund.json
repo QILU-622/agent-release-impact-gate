@@ -1,0 +1,25 @@
+{
+  "name": "refund",
+  "display_name": "Refund",
+  "agent_chain": [
+    "SupportAgent",
+    "OrderAgent",
+    "RefundAgent",
+    "PaymentTool",
+    "EmailAgent"
+  ],
+  "tools": [
+    "get_order",
+    "refund_order",
+    "send_email"
+  ],
+  "policies": [
+    "Eligibility checks must not execute a refund.",
+    "Orders older than 30 days require manual review.",
+    "Refunds above $100 require human approval.",
+    "refund_order requires explicit user confirmation.",
+    "A success email may be sent only after the refund succeeds."
+  ],
+  "base_risk": 0.2,
+  "reversible": true
+}

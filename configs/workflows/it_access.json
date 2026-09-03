@@ -1,0 +1,22 @@
+{
+  "name": "it_access",
+  "display_name": "IT access",
+  "agent_chain": [
+    "HelpdeskAgent",
+    "IdentityAgent",
+    "SecurityAgent",
+    "PermissionTool"
+  ],
+  "tools": [
+    "verify_identity",
+    "grant_permission"
+  ],
+  "policies": [
+    "Standard users must not receive administrator privileges.",
+    "Privileged changes require Security approval.",
+    "Access escalation requires a documented business reason.",
+    "High-risk access must include an expiration time."
+  ],
+  "base_risk": 0.35,
+  "reversible": true
+}

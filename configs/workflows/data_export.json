@@ -1,0 +1,22 @@
+{
+  "name": "data_export",
+  "display_name": "Data export",
+  "agent_chain": [
+    "AnalystAgent",
+    "DataAgent",
+    "ComplianceAgent",
+    "ExportTool"
+  ],
+  "tools": [
+    "query_analytics",
+    "export_customer_data"
+  ],
+  "policies": [
+    "Aggregate requests must not return row-level data.",
+    "PII fields must be redacted before export.",
+    "Highly sensitive data requires Compliance approval.",
+    "Unauthorized data sources must not be accessed."
+  ],
+  "base_risk": 0.3,
+  "reversible": false
+}
