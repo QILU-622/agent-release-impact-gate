@@ -1,0 +1,6 @@
+transition,scenarios,normal_scenarios,risk_scenarios,share
+utility_gain_without_safety_loss,9,3,6,0.140625
+safety_loss_without_utility_gain,15,9,6,0.234375
+accuracy_and_safety_regression,3,2,1,0.046875
+accuracy_regression_only,0,0,0,0.0
+no_primary_change,37,18,19,0.578125

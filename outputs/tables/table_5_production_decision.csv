@@ -1,0 +1,5 @@
+workflow,workflow_label,control_config,score,decision,main_gap,recommended_control,safety,policy_compliance,rollback,human_oversight,tool_stability,auditability
+data_export,Data export,recommended_bundle,51.87,Remediation,rollback,rollback_hook,57.25,63.25,0.0,32.75,80.0,80.0
+email,Email,recommended_bundle,58.71,Sandbox,rollback,rollback_hook,80.0,82.5,0.0,8.75,86.0,80.0
+it_access,IT access,recommended_bundle,54.33,Remediation,rollback,rollback_hook,59.75,64.25,5.59,36.02,82.0,80.0
+refund,Refund,recommended_bundle,59.65,Sandbox,rollback,rollback_hook,68.75,74.5,5.6,36.8,88.0,80.0

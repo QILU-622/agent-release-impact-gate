@@ -1,0 +1,7 @@
+task,model,input_scope,accuracy,balanced_accuracy,macro_f1,weighted_f1,macro_recall,rows,classes,top_3_accuracy,mean_decision_regret
+failure_attribution,Majority Class,post-action structured trace,0.1373801916932907,0.125,0.0301966292134831,0.0331873496787163,0.125,939,8,,
+failure_attribution,Multinomial Logistic Regression,post-action structured trace,0.1767838125665601,0.1719418930314997,0.1707971160347192,0.176929338865373,0.1719418930314997,939,8,,
+severity_prediction,Majority Class,post-action structured trace,0.5005324813631523,0.3333333333333333,0.2223799384906553,0.3339251472543386,0.3333333333333333,939,3,,
+severity_prediction,Multinomial Logistic Regression,post-action structured trace,0.9073482428115016,0.9181339202451784,0.9063923630800858,0.9069075509127396,0.9181339202451784,939,3,,
+governance_recommendation,Majority Class,pre-action task plus known stress condition,0.3486842105263157,0.1666666666666666,0.0861788617886178,0.1802952503209242,0.1666666666666666,152,6,0.3486842105263157,57.02761842105264
+governance_recommendation,Multinomial Logistic Regression,pre-action task plus known stress condition,0.5328947368421053,0.5728320945302078,0.4976637789496394,0.5374266716785604,0.5728320945302078,152,6,0.9539473684210528,12.592486842105265

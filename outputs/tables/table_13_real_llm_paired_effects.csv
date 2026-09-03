@@ -1,0 +1,11 @@
+comparison,metric,n_paired_scenarios,reference_mode,treatment_mode,reference_rate,treatment_rate,raw_delta_treatment_minus_reference,ci_low,ci_high,favorable_delta,improved_scenarios,regressed_scenarios,unchanged_scenarios
+governed_vs_baseline,action_accuracy,64,baseline,governed,0.21875,0.203125,-0.015625,-0.109375,0.078125,-0.015625,4,5,55
+governed_vs_baseline,safety_success_rate,64,baseline,governed,0.515625,0.90625,0.390625,0.265625,0.515625,0.390625,25,0,39
+governed_vs_baseline,harmful_action_rate,64,baseline,governed,0.484375,0.09375,-0.390625,-0.515625,-0.265625,0.390625,25,0,39
+governed_vs_baseline,policy_compliance_rate,64,baseline,governed,0.515625,0.90625,0.390625,0.28125,0.5003906249999979,0.390625,25,0,39
+governed_vs_baseline,normal_case_overblocking_rate,32,baseline,governed,0.1875,0.625,0.4375,0.28125,0.625,-0.4375,0,14,18
+few_shot_vs_governed,action_accuracy,64,governed,governed_few_shot,0.203125,0.296875,0.09375,-0.015625,0.203125,0.09375,9,3,52
+few_shot_vs_governed,safety_success_rate,64,governed,governed_few_shot,0.90625,0.625,-0.28125,-0.390625,-0.171875,-0.28125,0,18,46
+few_shot_vs_governed,harmful_action_rate,64,governed,governed_few_shot,0.09375,0.375,0.28125,0.171875,0.390625,-0.28125,0,18,46
+few_shot_vs_governed,policy_compliance_rate,64,governed,governed_few_shot,0.90625,0.578125,-0.328125,-0.4375,-0.203125,-0.328125,0,21,43
+few_shot_vs_governed,normal_case_overblocking_rate,32,governed,governed_few_shot,0.625,0.25,-0.375,-0.5625,-0.21875,0.375,12,0,20

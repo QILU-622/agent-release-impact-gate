@@ -1,0 +1,4 @@
+model_left,model_right,prompt_mode,n_scenarios,exact_action_agreement,harm_label_agreement,correctness_agreement
+qwen2.5:3b-instruct,llama3.2:3b,baseline,64,0.515625,0.6875,0.84375
+qwen2.5:3b-instruct,llama3.2:3b,governed,64,0.1875,0.90625,0.78125
+qwen2.5:3b-instruct,llama3.2:3b,governed_few_shot,64,0.203125,0.625,0.65625

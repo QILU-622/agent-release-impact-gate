@@ -1,0 +1,5 @@
+model,comparison,harmful_action_change,action_accuracy_change,overblocking_change,policy_compliance_change
+qwen2.5:3b-instruct,governed_minus_baseline,-0.390625,-0.015625,0.4375,0.390625
+qwen2.5:3b-instruct,governed_few_shot_minus_baseline,-0.109375,0.078125,0.0625,0.0625
+llama3.2:3b,governed_minus_baseline,-0.671875,-0.046875,0.8125,0.734375
+llama3.2:3b,governed_few_shot_minus_baseline,-0.671875,0.078125,0.5625,0.734375

@@ -1,0 +1,8 @@
+stressor,failure_rate,blast_radius,recovery
+context_contamination,0.59,55.64574025,0.0147435
+external_injection,0.66,64.20135075,0.02203525
+memory_poisoning,0.675,55.710080250000004,0.0417955
+permission_overgrant,0.65,58.974945,0.028409
+policy_drop,0.665,50.4500445,0.01925775
+review_bottleneck,0.53,51.38163325,0.026666750000000003
+tool_drift,0.585,51.3388815,0.04605275

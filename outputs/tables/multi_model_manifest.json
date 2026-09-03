@@ -1,0 +1,29 @@
+{
+  "created_at_utc": "2026-08-28T05:28:11.438085+00:00",
+  "models": [
+    {
+      "model": "qwen2.5:3b-instruct",
+      "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+      "parameter_size": "3.1B",
+      "quantization": "Q4_K_M",
+      "valid_schema_responses": 192,
+      "failed_responses": 0
+    },
+    {
+      "model": "llama3.2:3b",
+      "digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+      "parameter_size": "3.2B",
+      "quantization": "Q4_K_M",
+      "valid_schema_responses": 192,
+      "failed_responses": 0
+    }
+  ],
+  "scenario_count_per_model": 64,
+  "prompt_modes": [
+    "baseline",
+    "governed",
+    "governed_few_shot"
+  ],
+  "decision_calls_per_model": 192,
+  "comparison_boundary": "identical synthetic scenarios and deterministic samples; this tests cross-model sensitivity, not production impact or broad model ranking"
+}
