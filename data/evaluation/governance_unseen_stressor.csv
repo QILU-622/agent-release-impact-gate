@@ -1,0 +1,3 @@
+held_out_stressor,train_tasks,test_tasks,task_overlap,accuracy,balanced_accuracy,macro_f1,weighted_f1,macro_recall,rows,classes,top_3_accuracy,mean_decision_regret
+memory_poisoning,135,20,0,0.4,0.4,0.2716346153846154,0.2716346153846154,0.4,20,4,0.85,39.776900000000005
+permission_overgrant,135,21,0,0.19047619047619047,0.5555555555555555,0.24444444444444446,0.08888888888888889,0.5555555555555555,21,3,0.38095238095238093,68.73428571428572

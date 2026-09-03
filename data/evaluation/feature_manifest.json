@@ -1,0 +1,120 @@
+{
+  "numeric_features": [
+    "agent_count",
+    "tool_count",
+    "policy_count",
+    "delegation_depth",
+    "graph_nodes",
+    "graph_edges",
+    "graph_density",
+    "high_risk_tool_count",
+    "critical_tool_count",
+    "write_tool_count",
+    "irreversible_tool_count",
+    "approval_tool_count",
+    "workflow_base_risk",
+    "risk_level_ordinal",
+    "case_is_risk",
+    "task_reversible",
+    "human_review_required",
+    "amount_scaled",
+    "age_over_30",
+    "confirmed",
+    "eligibility_only",
+    "includes_customer_data",
+    "external_content_present",
+    "approved",
+    "aggregate_only",
+    "includes_pii",
+    "authorized",
+    "admin_requested",
+    "has_business_reason",
+    "has_expiration",
+    "identity_verified",
+    "policy_integrity",
+    "tool_contract_integrity",
+    "context_integrity",
+    "external_untrusted",
+    "permission_excess",
+    "review_capacity",
+    "memory_integrity",
+    "stressor_intensity",
+    "control_count",
+    "control_cost",
+    "control_expected_coverage",
+    "control_completion_penalty",
+    "control_review_add",
+    "control__context_envelope",
+    "control__tool_version_lock",
+    "control__permission_scope",
+    "control__human_review_gate",
+    "control__rollback_hook",
+    "control__external_isolation"
+  ],
+  "categorical_features": [
+    "case_type",
+    "risk_level",
+    "expected_action"
+  ],
+  "text_features": [
+    "user_text",
+    "policy_text"
+  ],
+  "feature_groups": {
+    "policy": [
+      "policy_count",
+      "policy_integrity",
+      "human_review_required",
+      "policy_text"
+    ],
+    "tool": [
+      "tool_count",
+      "high_risk_tool_count",
+      "critical_tool_count",
+      "write_tool_count",
+      "irreversible_tool_count",
+      "approval_tool_count",
+      "tool_contract_integrity"
+    ],
+    "graph": [
+      "agent_count",
+      "delegation_depth",
+      "graph_nodes",
+      "graph_edges",
+      "graph_density"
+    ],
+    "context": [
+      "context_integrity",
+      "confirmed",
+      "eligibility_only",
+      "approved",
+      "authorized",
+      "has_business_reason",
+      "has_expiration",
+      "identity_verified"
+    ],
+    "text": [
+      "user_text",
+      "policy_text"
+    ]
+  },
+  "forbidden_outcome_columns": [
+    "blast_radius",
+    "cascading_failure",
+    "completion_probability",
+    "harmful_action",
+    "human_review",
+    "incident",
+    "over_blocked",
+    "policy_violation",
+    "review_saturated",
+    "risk_probability",
+    "rollback_attempted",
+    "rollback_success",
+    "safety_success",
+    "task_success",
+    "tool_calls",
+    "unsafe_tool_calls"
+  ],
+  "leakage_policy": "Models may use only pre-action task, graph, stressor, tool, policy, and control inputs. Simulator probabilities and all post-action outcomes are forbidden."
+}

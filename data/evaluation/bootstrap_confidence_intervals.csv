@@ -1,0 +1,6 @@
+model,metric,estimate,ci_low,ci_high,bootstrap_iterations,resampling_unit
+Logistic Regression + Isotonic,f1,0.6835722160970231,0.5952417687030168,0.7545376361079317,300,task_id
+Logistic Regression + Isotonic,safety_recall,0.6602768903088392,0.5277242617258727,0.7712076159021498,300,task_id
+Logistic Regression + Isotonic,auroc,0.770135141753357,0.7235352359860246,0.8131058101122047,300,task_id
+Logistic Regression + Isotonic,pr_auc,0.7194413867146371,0.6249167867505864,0.7900684204161784,300,task_id
+Logistic Regression + Isotonic,over_blocking_rate,0.22993688007213706,0.15002505288943324,0.3236011295162787,300,task_id

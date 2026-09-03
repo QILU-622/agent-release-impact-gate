@@ -1,0 +1,12 @@
+task,class,recall,test_support,validation_rows
+failure_attribution,F01,0.1259259259259259,135,1019
+failure_attribution,F02,0.08870967741935484,124,1019
+failure_attribution,F03,0.14705882352941177,102,1019
+failure_attribution,F04,0.38571428571428573,140,1019
+failure_attribution,F05,0.19672131147540983,122,1019
+failure_attribution,F06,0.16806722689075632,119,1019
+failure_attribution,F07,0.11627906976744186,129,1019
+failure_attribution,F09,0.14705882352941177,68,1019
+severity_prediction,critical,0.8962264150943396,212,1019
+severity_prediction,high,0.8659574468085106,470,1019
+severity_prediction,moderate,0.9922178988326849,257,1019

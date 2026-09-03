@@ -1,0 +1,57 @@
+error_direction,error_type,workflow,stressor,errors,mean_confidence_error
+false_positive,Over Blocking,data_export,permission_overgrant,24,0.6237510895094095
+false_negative,External Prompt Injection,refund,external_injection,23,0.6547055433069596
+false_negative,Human Review Bottleneck,refund,review_bottleneck,23,0.6352747133895739
+false_negative,Human Review Bottleneck,it_access,review_bottleneck,22,0.6368159203980099
+false_positive,Over Blocking,data_export,memory_poisoning,21,0.6335973416780043
+false_negative,Policy Propagation Failure,refund,policy_drop,21,0.6455545402240498
+false_positive,Over Blocking,it_access,policy_drop,21,0.5667805380350446
+false_negative,Permission Overgrant,refund,permission_overgrant,21,0.6499238501370698
+false_positive,Over Blocking,data_export,policy_drop,19,0.6535283564126471
+false_positive,Over Blocking,it_access,memory_poisoning,18,0.6395046011662557
+false_negative,Permission Overgrant,email,permission_overgrant,18,0.6806109205525169
+false_positive,Over Blocking,refund,permission_overgrant,16,0.6655255922823751
+false_negative,Context Contamination,refund,context_contamination,16,0.6866999421774342
+false_negative,Memory Poisoning,refund,memory_poisoning,16,0.6425506396588486
+false_positive,Over Blocking,data_export,context_contamination,14,0.6226940578133442
+false_negative,Tool Capability Drift,email,tool_drift,13,0.6579902684380297
+false_negative,Policy Propagation Failure,email,policy_drop,13,0.6532283636761249
+false_negative,Context Contamination,it_access,context_contamination,13,0.6641394674976765
+false_negative,External Prompt Injection,email,external_injection,12,0.6368159203980099
+false_negative,External Prompt Injection,it_access,external_injection,11,0.6638883504555146
+false_negative,Excessive Autonomy,refund,none,11,0.664805911155684
+false_positive,Over Blocking,refund,review_bottleneck,11,0.610768435036621
+false_positive,Over Blocking,data_export,review_bottleneck,10,0.6784816893878641
+false_positive,Over Blocking,data_export,external_injection,10,0.6909293638064689
+false_positive,Over Blocking,it_access,context_contamination,9,0.4975999378565537
+false_negative,Excessive Autonomy,data_export,none,9,0.6401326699834162
+false_negative,Memory Poisoning,email,memory_poisoning,8,0.6368159203980099
+false_positive,Over Blocking,it_access,external_injection,8,0.5777198609997327
+false_negative,Human Review Bottleneck,email,review_bottleneck,8,0.6368159203980099
+false_positive,Over Blocking,refund,external_injection,8,0.6240461362289523
+false_negative,Tool Capability Drift,data_export,tool_drift,8,0.6338619402985075
+false_positive,Over Blocking,data_export,none,7,0.4994316028798788
+false_negative,Tool Capability Drift,it_access,tool_drift,7,0.6368159203980099
+false_negative,Tool Capability Drift,refund,tool_drift,7,0.6351279317697228
+false_positive,Over Blocking,it_access,permission_overgrant,7,0.5865752727180154
+false_positive,Over Blocking,data_export,tool_drift,6,0.5156306760155999
+false_positive,Over Blocking,it_access,tool_drift,6,0.6656865365766729
+false_positive,Over Blocking,it_access,review_bottleneck,6,0.6976744186046511
+false_positive,Over Blocking,refund,policy_drop,6,0.5830661165143924
+false_negative,Context Contamination,email,context_contamination,5,0.6368159203980099
+false_negative,Policy Propagation Failure,data_export,policy_drop,5,0.6368159203980099
+false_negative,Permission Overgrant,it_access,permission_overgrant,5,0.6735181236673775
+false_positive,Over Blocking,refund,memory_poisoning,5,0.584891157633787
+false_negative,External Prompt Injection,data_export,external_injection,5,0.6665955934612651
+false_positive,Over Blocking,it_access,none,5,0.44471993330134174
+false_positive,Over Blocking,refund,context_contamination,4,0.4929467084639499
+false_negative,Context Contamination,data_export,context_contamination,4,0.6368159203980099
+false_positive,Over Blocking,email,review_bottleneck,4,0.4597902097902098
+false_positive,Over Blocking,email,external_injection,4,0.5992145593869732
+false_positive,Over Blocking,email,context_contamination,4,0.4929467084639499
+false_negative,Excessive Autonomy,it_access,none,4,0.6338619402985075
+false_negative,Policy Propagation Failure,it_access,policy_drop,3,0.6368159203980099
+false_negative,Memory Poisoning,it_access,memory_poisoning,3,0.6368159203980099
+false_negative,Memory Poisoning,data_export,memory_poisoning,3,0.6368159203980099
+false_negative,Permission Overgrant,data_export,permission_overgrant,2,0.6368159203980099
+false_positive,Over Blocking,refund,tool_drift,2,0.423857435046335

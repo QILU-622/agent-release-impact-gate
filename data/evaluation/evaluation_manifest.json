@@ -1,0 +1,26 @@
+{
+  "dataset_rows": 12800,
+  "unique_tasks": 200,
+  "split_rows": {
+    "train": 8704,
+    "validation": 2048,
+    "test": 2048
+  },
+  "split_tasks": {
+    "train": 136,
+    "test": 32,
+    "validation": 32
+  },
+  "task_overlap_train_test": 0,
+  "positive_rate": 0.47328125,
+  "selection_metric": "validation_pr_auc",
+  "best_uncalibrated_model": "Logistic Regression",
+  "calibration_method": "Isotonic selected by ECE on validation-tune task groups after fitting on disjoint validation-calibration task groups",
+  "threshold_tuning": "maximize F2 subject to over-blocking rate <= 35% on disjoint validation tasks",
+  "bootstrap": "300 task-cluster resamples",
+  "unseen_stressors": [
+    "memory_poisoning",
+    "permission_overgrant"
+  ],
+  "result_scope": "offline classifiers trained on synthetic simulator traces; no LLM results"
+}
