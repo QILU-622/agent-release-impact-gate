@@ -1,0 +1,88 @@
+name: Agent Release Impact Gate
+description: Compare approved and candidate Agent evidence and fail the job when rollout is blocked.
+
+inputs:
+  baseline-report:
+    description: Path to the approved-build regression JSON in the caller workspace.
+    required: true
+  candidate-report:
+    description: Path to the candidate-build regression JSON in the caller workspace.
+    required: true
+  gate-config:
+    description: Path to the protected release-gate configuration in the caller workspace.
+    required: true
+  output-directory:
+    description: Directory for the JSON, Markdown, and CSV decision packet.
+    required: false
+    default: .agent-release-gate
+  python-command:
+    description: Python executable available on the runner.
+    required: false
+    default: python
+
+outputs:
+  ci-status:
+    description: PASS or BLOCK from the decision packet; INVALID when evidence cannot be compared.
+    value: ${{ steps.gate.outputs.ci-status }}
+  maximum-authorized-stage:
+    description: Furthest rollout stage supported by the evidence.
+    value: ${{ steps.gate.outputs.maximum-authorized-stage }}
+  decision-json:
+    description: Path to the machine-readable release decision.
+    value: ${{ steps.gate.outputs.decision-json }}
+
+runs:
+  using: composite
+  steps:
+    - name: Install the pinned gate implementation
+      shell: bash
+      env:
+        PYTHON_COMMAND: ${{ inputs.python-command }}
+      run: >-
+        "$PYTHON_COMMAND" -m pip install
+        "$GITHUB_ACTION_PATH/../../.."
+
+    - name: Compare release evidence
+      id: gate
+      shell: bash
+      env:
+        PYTHON_COMMAND: ${{ inputs.python-command }}
+        BASELINE_REPORT: ${{ inputs.baseline-report }}
+        CANDIDATE_REPORT: ${{ inputs.candidate-report }}
+        GATE_CONFIG: ${{ inputs.gate-config }}
+        OUTPUT_DIRECTORY: ${{ inputs.output-directory }}
+      run: |
+        mkdir -p "$OUTPUT_DIRECTORY"
+        set +e
+        "$PYTHON_COMMAND" -m agent_mesh_risk_lab.release_impact_gate \
+          "$BASELINE_REPORT" \
+          "$CANDIDATE_REPORT" \
+          --config "$GATE_CONFIG" \
+          --json-output "$OUTPUT_DIRECTORY/release_decision.json" \
+          --markdown-output "$OUTPUT_DIRECTORY/release_decision.md" \
+          --case-csv-output "$OUTPUT_DIRECTORY/case_diffs.csv"
+        gate_exit=$?
+        set -e
+
+        echo "decision-json=$OUTPUT_DIRECTORY/release_decision.json" >> "$GITHUB_OUTPUT"
+        if [[ "$gate_exit" -eq 2 ]]; then
+          echo "ci-status=INVALID" >> "$GITHUB_OUTPUT"
+          echo "maximum-authorized-stage=INVALID" >> "$GITHUB_OUTPUT"
+          exit 2
+        fi
+
+        "$PYTHON_COMMAND" - "$OUTPUT_DIRECTORY/release_decision.json" "$GITHUB_OUTPUT" <<'PY'
+        import json
+        import pathlib
+        import sys
+
+        decision = json.loads(pathlib.Path(sys.argv[1]).read_text())
+        with pathlib.Path(sys.argv[2]).open("a") as handle:
+            handle.write(f"ci-status={decision['ci_status']}\n")
+            handle.write(
+                "maximum-authorized-stage="
+                f"{decision['maximum_authorized_stage']}\n"
+            )
+        PY
+
+        exit "$gate_exit"
