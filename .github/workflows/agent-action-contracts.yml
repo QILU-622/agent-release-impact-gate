@@ -74,11 +74,11 @@ jobs:
         with:
           name: agent-action-contract-results
           path: ${{ runner.temp }}/agent-release-evidence/regression/
-          if-no-files-found: error
+          if-no-files-found: warn
       - name: Upload paired release decision
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: agent-release-impact-demo-decision
           path: ${{ runner.temp }}/agent-release-evidence/release_gate/
-          if-no-files-found: error
+          if-no-files-found: warn

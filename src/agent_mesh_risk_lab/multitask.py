@@ -404,19 +404,28 @@ def _evaluate_governance(
     return rows, confusion, pd.DataFrame(unseen_rows)
 
 
-def run_multitask_evaluation(
-    project_root: Path,
-    feature_frame: pd.DataFrame,
-    results: pd.DataFrame,
-    seed: int = 20260827,
-) -> dict[str, Path]:
-    output_dir = project_root / "data" / "evaluation"
-    output_dir.mkdir(parents=True, exist_ok=True)
-    feature_access = evaluate_feature_access(feature_frame, seed=seed)
-    trace_frame = _trace_frame(feature_frame, results)
+def fit_deployable_risk_bundle(feature_frame: pd.DataFrame) -> dict[str, object]:
+    """Fit the deployable scorer from pre-action, deployment-observable features only."""
+    required_columns = {
+        "split",
+        "harmful_label",
+        *DEPLOYABLE_NUMERIC_FEATURES,
+        *DEPLOYABLE_CATEGORICAL_FEATURES,
+    }
+    missing_columns = sorted(required_columns - set(feature_frame.columns))
+    if missing_columns:
+        raise ValueError(f"Deployable scorer inputs are missing columns: {missing_columns}")
 
     train = feature_frame[feature_frame["split"] == "train"]
     validation = feature_frame[feature_frame["split"] == "validation"]
+    for split_name, split_frame in (("train", train), ("validation", validation)):
+        if split_frame.empty:
+            raise ValueError(f"Deployable scorer requires a non-empty {split_name} split")
+        if split_frame["harmful_label"].nunique() < 2:
+            raise ValueError(
+                f"Deployable scorer requires both outcome classes in the {split_name} split"
+            )
+
     deployable_columns = DEPLOYABLE_NUMERIC_FEATURES + DEPLOYABLE_CATEGORICAL_FEATURES
     threshold_model = logistic_pipeline(
         numeric=DEPLOYABLE_NUMERIC_FEATURES,
@@ -428,6 +437,7 @@ def run_multitask_evaluation(
     deployable_threshold, _ = tune_threshold(
         validation["harmful_label"].to_numpy(), validation_probability
     )
+
     deployable_model = logistic_pipeline(
         numeric=DEPLOYABLE_NUMERIC_FEATURES,
         categorical=DEPLOYABLE_CATEGORICAL_FEATURES,
@@ -437,19 +447,31 @@ def run_multitask_evaluation(
     deployable_model.fit(
         deployable_training[deployable_columns], deployable_training["harmful_label"]
     )
+    return {
+        "model": deployable_model,
+        "threshold": deployable_threshold,
+        "columns": deployable_columns,
+        "feature_access": "deployment-observable structured inputs",
+        "training_scope": "train plus validation tasks after threshold selection",
+    }
+
+
+def run_multitask_evaluation(
+    project_root: Path,
+    feature_frame: pd.DataFrame,
+    results: pd.DataFrame,
+    seed: int = 20260827,
+) -> dict[str, Path]:
+    output_dir = project_root / "data" / "evaluation"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    feature_access = evaluate_feature_access(feature_frame, seed=seed)
+    trace_frame = _trace_frame(feature_frame, results)
+
+    deployable_bundle = fit_deployable_risk_bundle(feature_frame)
     model_dir = project_root / "outputs" / "models"
     model_dir.mkdir(parents=True, exist_ok=True)
     deployable_model_path = model_dir / "deployable_risk_model.joblib"
-    joblib.dump(
-        {
-            "model": deployable_model,
-            "threshold": deployable_threshold,
-            "columns": deployable_columns,
-            "feature_access": "deployment-observable structured inputs",
-            "training_scope": "train plus validation tasks after threshold selection",
-        },
-        deployable_model_path,
-    )
+    joblib.dump(deployable_bundle, deployable_model_path)
 
     comparison_rows: list[dict[str, object]] = []
     confusion_rows: list[dict[str, object]] = []
