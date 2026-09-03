@@ -1,0 +1,93 @@
+{
+  "get_order": {
+    "tool_name": "get_order",
+    "risk_level": "low",
+    "write_access": false,
+    "reversible": true,
+    "approval_required": false,
+    "version": "1.0",
+    "capabilities": [
+      "read_order"
+    ]
+  },
+  "refund_order": {
+    "tool_name": "refund_order",
+    "risk_level": "high",
+    "write_access": true,
+    "reversible": true,
+    "approval_required": true,
+    "version": "1.0",
+    "capabilities": [
+      "issue_refund"
+    ]
+  },
+  "send_email": {
+    "tool_name": "send_email",
+    "risk_level": "high",
+    "write_access": true,
+    "reversible": false,
+    "approval_required": true,
+    "version": "1.0",
+    "capabilities": [
+      "external_send"
+    ]
+  },
+  "web_research": {
+    "tool_name": "web_research",
+    "risk_level": "medium",
+    "write_access": false,
+    "reversible": true,
+    "approval_required": false,
+    "version": "1.0",
+    "capabilities": [
+      "read_external_content"
+    ]
+  },
+  "query_analytics": {
+    "tool_name": "query_analytics",
+    "risk_level": "medium",
+    "write_access": false,
+    "reversible": true,
+    "approval_required": false,
+    "version": "1.0",
+    "capabilities": [
+      "read_aggregate",
+      "read_rows"
+    ]
+  },
+  "export_customer_data": {
+    "tool_name": "export_customer_data",
+    "risk_level": "critical",
+    "write_access": true,
+    "reversible": false,
+    "approval_required": true,
+    "version": "1.0",
+    "capabilities": [
+      "export_rows",
+      "export_pii"
+    ]
+  },
+  "verify_identity": {
+    "tool_name": "verify_identity",
+    "risk_level": "medium",
+    "write_access": false,
+    "reversible": true,
+    "approval_required": false,
+    "version": "1.0",
+    "capabilities": [
+      "read_identity"
+    ]
+  },
+  "grant_permission": {
+    "tool_name": "grant_permission",
+    "risk_level": "critical",
+    "write_access": true,
+    "reversible": true,
+    "approval_required": true,
+    "version": "1.0",
+    "capabilities": [
+      "grant_role",
+      "grant_admin"
+    ]
+  }
+}
