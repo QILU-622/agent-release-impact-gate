@@ -1,0 +1,7 @@
+control,label,shapley_risk_reduction,cost,shapley_per_cost,efficiency_gap
+human_review_gate,Selective Human Review,0.18155952380952378,45.0,0.004034656084656084,0.0
+context_envelope,Context Envelope,0.0895714285714286,12.0,0.007464285714285716,0.0
+external_isolation,External Isolation,0.06113095238095238,14.0,0.004366496598639456,0.0
+permission_scope,Permission Scope,0.05733333333333331,10.0,0.005733333333333332,0.0
+tool_version_lock,Tool Version Lock,0.04889285714285712,5.0,0.009778571428571425,0.0
+rollback_hook,Rollback Hook,0.032226190476190464,18.0,0.0017903439153439146,0.0

@@ -1,0 +1,16 @@
+control_a,control_b,label_a,label_b,observed_pair_risk,expected_independent_risk,synergy,interpretation
+context_envelope,permission_scope,Context Envelope,Permission Scope,0.3992857142857143,0.41539609644087255,0.016110382155158254,complementary
+context_envelope,tool_version_lock,Context Envelope,Tool Version Lock,0.42142857142857143,0.43544202066590126,0.014013449237329834,complementary
+tool_version_lock,external_isolation,Tool Version Lock,External Isolation,0.4585714285714286,0.4700721666393308,0.01150073806790225,complementary
+tool_version_lock,permission_scope,Tool Version Lock,Permission Scope,0.4692857142857143,0.47840905363293423,0.009123339347219928,complementary
+context_envelope,external_isolation,Context Envelope,External Isolation,0.4014285714285714,0.4081572904707233,0.006728719042151887,complementary
+tool_version_lock,human_review_gate,Tool Version Lock,Selective Human Review,0.30214285714285716,0.30846481876332627,0.006321961620469108,complementary
+human_review_gate,rollback_hook,Selective Human Review,Rollback Hook,0.31,0.3131982942430704,0.0031982942430703876,approximately_independent
+rollback_hook,external_isolation,Rollback Hook,External Isolation,0.4742857142857143,0.47728555027062497,0.0029998359849106593,approximately_independent
+permission_scope,rollback_hook,Permission Scope,Rollback Hook,0.4828571428571429,0.48575036903395113,0.0028932261768082612,approximately_independent
+tool_version_lock,rollback_hook,Tool Version Lock,Rollback Hook,0.5071428571428571,0.5091914056093161,0.002048548466458966,approximately_independent
+context_envelope,rollback_hook,Context Envelope,Rollback Hook,0.445,0.4421239954075775,-0.0028760045924224875,approximately_independent
+permission_scope,human_review_gate,Permission Scope,Selective Human Review,0.29928571428571427,0.29426439232409385,-0.0050213219616204174,diminishing_returns
+human_review_gate,external_isolation,Selective Human Review,External Isolation,0.295,0.28913646055437103,-0.005863539445628951,diminishing_returns
+permission_scope,external_isolation,Permission Scope,External Isolation,0.455,0.4484320157454486,-0.006567984254551407,diminishing_returns
+context_envelope,human_review_gate,Context Envelope,Selective Human Review,0.2792857142857143,0.26783582089552244,-0.011449893390191868,diminishing_returns
