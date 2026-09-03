@@ -1,0 +1,6 @@
+# Release policy and gate changes require explicit review once branch protection is enabled.
+/configs/release/ @QILU-622
+/configs/regression/ @QILU-622
+/src/agent_mesh_risk_lab/release_impact_gate.py @QILU-622
+/.github/actions/release-impact-gate/ @QILU-622
+/.github/workflows/ @QILU-622
