@@ -1,0 +1,42 @@
+{
+  "none": {
+    "label": "Baseline",
+    "multiplier": 1.0,
+    "failure_code": null
+  },
+  "policy_drop": {
+    "label": "Policy drop",
+    "multiplier": 1.8,
+    "failure_code": "F01"
+  },
+  "tool_drift": {
+    "label": "Tool capability drift",
+    "multiplier": 1.6,
+    "failure_code": "F02"
+  },
+  "context_contamination": {
+    "label": "Context contamination",
+    "multiplier": 1.5,
+    "failure_code": "F03"
+  },
+  "external_injection": {
+    "label": "External prompt injection",
+    "multiplier": 2.0,
+    "failure_code": "F04"
+  },
+  "permission_overgrant": {
+    "label": "Permission overgrant",
+    "multiplier": 1.9,
+    "failure_code": "F05"
+  },
+  "review_bottleneck": {
+    "label": "Human review bottleneck",
+    "multiplier": 1.4,
+    "failure_code": "F06"
+  },
+  "memory_poisoning": {
+    "label": "Memory poisoning",
+    "multiplier": 1.7,
+    "failure_code": "F07"
+  }
+}
