@@ -1,0 +1,46 @@
+# Source-control and local development state
+.git
+.github
+.venv
+venv
+__pycache__
+*.py[cod]
+*.egg-info
+.pytest_cache
+.ruff_cache
+.mypy_cache
+.coverage
+htmlcov
+build
+dist
+.DS_Store
+
+# Never send local credentials or private configuration to the Docker daemon.
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+secrets
+*.pem
+*.key
+*.p12
+*.pfx
+configs/enterprise/principals.json
+configs/enterprise/principals.local.json
+
+# Runtime databases, customer pilot material, fitted models, and generated
+# analysis outputs are not needed to build the API image.
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+*.joblib
+*.pkl
+*.pickle
+pilot
+data
+outputs
+notebooks
+tests
