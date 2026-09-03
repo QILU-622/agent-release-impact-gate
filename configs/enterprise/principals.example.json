@@ -1,0 +1,26 @@
+{
+  "warning": "Demo only. Replace this file with a secret-managed principal registry in production.",
+  "principals": [
+    {
+      "key_sha256": "d0e0cc99806e3027740778d5fa0fbae76dadc6993f163233916f23eafa28a74a",
+      "tenant_id": "acme-demo",
+      "subject_id": "refund-agent",
+      "roles": ["agent"],
+      "scopes": ["orders:read", "refunds:write"]
+    },
+    {
+      "key_sha256": "20b1441cbb34956c9b03bfe3c720b75b3ea99fd82f9bcd09c67ff53961fc6b41",
+      "tenant_id": "acme-demo",
+      "subject_id": "finance-reviewer",
+      "roles": ["finance_approver", "auditor"],
+      "scopes": []
+    },
+    {
+      "key_sha256": "7c50a63a5ddb0d5426739e803e5e076ec29685c8f7029f869dd8dce7f60c6b80",
+      "tenant_id": "acme-demo",
+      "subject_id": "payment-tool",
+      "roles": ["tool_executor"],
+      "scopes": []
+    }
+  ]
+}

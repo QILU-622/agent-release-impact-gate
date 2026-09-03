@@ -1,0 +1,25 @@
+{
+  "policy_version": "2026-08-28.1",
+  "grant_ttl_seconds": 300,
+  "max_request_age_seconds": 300,
+  "deny_untrusted_write_context": true,
+  "tool_scopes": {
+    "get_order": "orders:read",
+    "refund_order": "refunds:write",
+    "send_email": "email:send",
+    "web_research": "web:read",
+    "query_analytics": "analytics:read",
+    "export_customer_data": "data:export",
+    "verify_identity": "identity:read",
+    "grant_permission": "permissions:write"
+  },
+  "approval_roles": {
+    "refund_order": "finance_approver",
+    "send_email": "communications_approver",
+    "export_customer_data": "compliance_approver",
+    "grant_permission": "security_approver"
+  },
+  "restricted_data_tools": [
+    "export_customer_data"
+  ]
+}
