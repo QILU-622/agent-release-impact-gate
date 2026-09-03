@@ -1,0 +1,84 @@
+name: Agent release gate self-test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  release-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: agent_mesh_test
+          POSTGRES_USER: agent_mesh_test
+          POSTGRES_PASSWORD: postgres-test-password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U agent_mesh_test -d agent_mesh_test"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 12
+    env:
+      AGENT_MESH_TEST_POSTGRES_URL: postgresql://agent_mesh_test:postgres-test-password@127.0.0.1:5432/agent_mesh_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install the regression runner
+        run: python -m pip install -e ".[dev,postgres]"
+      - name: Check code quality
+        run: ruff check src tests scripts dashboard
+      - name: Run automated tests
+        run: pytest -q
+      - name: Create a clean evidence workspace
+        run: mkdir -p "$RUNNER_TEMP/agent-release-evidence/regression"
+      - name: Enforce Agent action contracts
+        run: >-
+          agent-mesh-regression
+          configs/regression/refund_action_contracts.json
+          --policy configs/enterprise/policy.json
+          --json-report "$RUNNER_TEMP/agent-release-evidence/regression/refund.json"
+          --junit-report "$RUNNER_TEMP/agent-release-evidence/regression/refund.junit.xml"
+      - name: Build the paired release decision demo
+        run: >-
+          PYTHONPATH=src python scripts/build_release_demo.py
+          --output-dir "$RUNNER_TEMP/agent-release-evidence/release_gate"
+      - name: Verify the risky candidate is blocked
+        run: >-
+          python -c "import json, pathlib;
+          p=pathlib.Path('${{ runner.temp }}/agent-release-evidence/release_gate/release_decision.json');
+          d=json.loads(p.read_text());
+          assert d['ci_status']=='BLOCK' and d['maximum_authorized_stage']=='BLOCK'"
+      - name: Publish the demo decision summary
+        if: always()
+        run: |
+          decision="$RUNNER_TEMP/agent-release-evidence/release_gate/release_decision.md"
+          if [[ -f "$decision" ]]; then
+            cat "$decision" >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Upload release evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent-action-contract-results
+          path: ${{ runner.temp }}/agent-release-evidence/regression/
+          if-no-files-found: error
+      - name: Upload paired release decision
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent-release-impact-demo-decision
+          path: ${{ runner.temp }}/agent-release-evidence/release_gate/
+          if-no-files-found: error
