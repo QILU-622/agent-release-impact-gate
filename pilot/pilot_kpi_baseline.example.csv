@@ -1,0 +1,6 @@
+metric,definition,pre_pilot_value,unit,source,owner,measurement_status
+manual_test_hours,Loaded staff hours used for one Agent release,,hours,,,unknown
+release_cycle_time,Elapsed time from Agent change to approved release,,hours,,,unknown
+historical_regressions,Confirmed Agent regressions found after release,,count,,,unknown
+manual_review_share,Actions sent to human review divided by all proposals,,proportion,,,unknown
+review_turnaround_p95,95th percentile approval queue plus decision time,,minutes,,,unknown

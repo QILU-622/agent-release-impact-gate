@@ -1,0 +1,17 @@
+{
+  "pilot_id": "replace-with-non-identifying-id",
+  "external_participant": false,
+  "workflow_owner_role": "",
+  "security_reviewer_role": "",
+  "data_period_bucket": "",
+  "source_system_category": "",
+  "real_agent_build_id": "",
+  "customer_attestations": {
+    "real_historical_cases": false,
+    "real_agent_proposals": false,
+    "direct_identifiers_removed": false,
+    "secrets_removed": false,
+    "authorized_for_shadow_evaluation": false
+  },
+  "evidence_boundary": "Shadow evaluation only; no real tool execution and no production-safety claim."
+}
