@@ -2,6 +2,8 @@ import json
 import shutil
 from pathlib import Path
 
+import pytest
+import streamlit as st
 from streamlit.testing.v1 import AppTest
 
 from agent_mesh_risk_lab.workforce_twin import load_twin_config, simulate_operating_day
@@ -12,6 +14,15 @@ RELEASE_WORKFLOW_PAGES = {
     "Enterprise Action Gateway",
     "Enterprise Deployment Planner",
 }
+
+
+@pytest.fixture(autouse=True)
+def _clear_streamlit_caches():
+    st.cache_data.clear()
+    st.cache_resource.clear()
+    yield
+    st.cache_data.clear()
+    st.cache_resource.clear()
 
 
 def _isolated_dashboard(tmp_path: Path) -> tuple[Path, Path]:
@@ -50,9 +61,9 @@ def _isolated_workforce_dashboard(tmp_path: Path) -> Path:
 
 def _navigate_to(result: AppTest, page: str) -> AppTest:
     if page in RELEASE_WORKFLOW_PAGES:
-        result.sidebar.radio[0].set_value("Release workflow").run()
+        result = result.sidebar.radio[0].set_value("Release workflow").run()
         return result.sidebar.radio[1].set_value(page).run()
-    result.sidebar.radio[0].set_value("Supporting research").run()
+    result = result.sidebar.radio[0].set_value("Supporting research").run()
     return result.sidebar.selectbox[0].set_value(page).run()
 
 
