@@ -4,6 +4,8 @@ from pathlib import Path
 
 from streamlit.testing.v1 import AppTest
 
+from agent_mesh_risk_lab.workforce_twin import load_twin_config, simulate_operating_day
+
 PROJECT_ROOT = Path(__file__).parents[1]
 RELEASE_WORKFLOW_PAGES = {
     "Release Impact Gate",
@@ -19,6 +21,31 @@ def _isolated_dashboard(tmp_path: Path) -> tuple[Path, Path]:
     output = tmp_path / "outputs" / "release_gate" / "demo"
     output.mkdir(parents=True)
     return app, output
+
+
+def _isolated_workforce_dashboard(tmp_path: Path) -> Path:
+    app = tmp_path / "dashboard" / "app.py"
+    app.parent.mkdir(parents=True)
+    shutil.copyfile(PROJECT_ROOT / "dashboard" / "app.py", app)
+
+    config_path = tmp_path / "configs" / "workforce_twin.json"
+    config_path.parent.mkdir(parents=True)
+    shutil.copyfile(PROJECT_ROOT / "configs" / "workforce_twin.json", config_path)
+
+    output = tmp_path / "data" / "workforce_twin"
+    output.mkdir(parents=True)
+    for filename in ("architecture_summary.csv", "recommendations.json", "manifest.json"):
+        shutil.copyfile(PROJECT_ROOT / "data" / "workforce_twin" / filename, output / filename)
+
+    config = load_twin_config(config_path)
+    _, events = simulate_operating_day(
+        config,
+        "solo_generalist",
+        "normal_day",
+        int(config["seeds"][0]),
+    )
+    events.to_csv(output / "event_log.csv", index=False)
+    return app
 
 
 def _navigate_to(result: AppTest, page: str) -> AppTest:
@@ -162,13 +189,14 @@ def test_release_impact_gate_rejects_missing_malformed_or_reused_build_digest(
         assert not result.metric
 
 
-def test_workforce_war_room_filters_and_playback_render() -> None:
-    app = Path(__file__).parents[1] / "dashboard" / "app.py"
+def test_workforce_war_room_filters_and_playback_render(tmp_path: Path) -> None:
+    app = _isolated_workforce_dashboard(tmp_path)
     result = AppTest.from_file(str(app), default_timeout=30).run()
     result = _navigate_to(result, "AI Workforce War Room")
-    result.selectbox[0].set_value("normal_day").run()
-    result.selectbox[1].set_value("solo_generalist").run()
-    result.slider[0].set_value(240).run()
+    result.selectbox(key="twin_scenario").set_value("normal_day")
+    result.selectbox(key="twin_architecture").set_value("solo_generalist")
+    result.main.slider[0].set_value(240)
+    result = result.run()
     assert not result.exception
     assert any(metric.label == "Safe completion" for metric in result.metric)
     assert any("Operating exceptions" in heading.value for heading in result.markdown)

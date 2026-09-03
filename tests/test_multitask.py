@@ -10,9 +10,35 @@ from agent_mesh_risk_lab.multitask import (
     PRIVILEGED_SIMULATOR_FEATURES,
     TRACE_CATEGORICAL_FEATURES,
     TRACE_NUMERIC_FEATURES,
+    fit_deployable_risk_bundle,
 )
 
 ROOT = Path(__file__).parents[1]
+
+
+def _minimal_deployable_feature_frame() -> pd.DataFrame:
+    rows = []
+    for split in ("train", "validation"):
+        for index in range(12):
+            harmful_label = index % 2
+            row: dict[str, object] = {
+                "split": split,
+                "harmful_label": harmful_label,
+            }
+            row.update(
+                {
+                    feature: float((index + offset) % 3 == harmful_label)
+                    for offset, feature in enumerate(DEPLOYABLE_NUMERIC_FEATURES)
+                }
+            )
+            row.update(
+                {
+                    feature: f"observed_{(index + offset) % 3}"
+                    for offset, feature in enumerate(DEPLOYABLE_CATEGORICAL_FEATURES)
+                }
+            )
+            rows.append(row)
+    return pd.DataFrame(rows)
 
 
 def test_deployable_features_exclude_simulator_privileged_fields():
@@ -52,8 +78,11 @@ def test_governance_model_reduces_decision_regret_against_majority():
 
 
 @pytest.mark.filterwarnings("ignore:Setting the shape on a NumPy array:DeprecationWarning")
-def test_persisted_deployable_scorer_uses_only_approved_columns():
-    bundle = joblib.load(ROOT / "outputs" / "models" / "deployable_risk_model.joblib")
+def test_persisted_deployable_scorer_uses_only_approved_columns(tmp_path: Path):
+    bundle_path = tmp_path / "deployable_risk_model.joblib"
+    joblib.dump(fit_deployable_risk_bundle(_minimal_deployable_feature_frame()), bundle_path)
+
+    bundle = joblib.load(bundle_path)
     assert set(bundle["columns"]) == set(
         DEPLOYABLE_NUMERIC_FEATURES + DEPLOYABLE_CATEGORICAL_FEATURES
     )
