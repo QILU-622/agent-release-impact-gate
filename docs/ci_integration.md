@@ -1,5 +1,9 @@
 # Production CI integration
 
+The repository CI lives at [`tests.yml`](../.github/workflows/tests.yml), with a linked status
+badge at the top of the README. It tests core-only and dashboard-only installs independently
+from the full research/API/PostgreSQL suite. The reusable action installs only the core package.
+
 The repository's own workflow is deliberately a **self-test**: it rebuilds a known risky demo and
 passes when the mechanism correctly returns `BLOCK`. A customer release workflow has the opposite
 purpose. It compares evidence generated for the exact approved and candidate artifacts, and it
