@@ -1,5 +1,9 @@
 # Agent Release Impact Gate
 
+[![Tests](https://github.com/QILU-622/agent-release-impact-gate/actions/workflows/tests.yml/badge.svg)](https://github.com/QILU-622/agent-release-impact-gate/actions/workflows/tests.yml)
+[Project walkthrough](https://QILU-622.github.io/agent-release-impact-gate/) ·
+[CI workflow](.github/workflows/tests.yml) · [Supporting research](research/README.md)
+
 > A release decision system for tool-using AI Agents. It compares an approved build with a
 > candidate build on the same business-action contracts, quantifies the operational impact, and
 > returns the furthest rollout stage supported by the evidence.
@@ -56,22 +60,52 @@ Inspect the generated evidence:
 
 ## Run the demo
 
-Python 3.12 or newer is required.
+Python 3.12 or newer is required. Clone this repository and run from its root.
+The core install needs only HTTPX (Agent adapters) and Pydantic (validated contracts),
+plus their transitive dependencies; no ML model, scientific stack, or web server is required.
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-python -m pip install -e ".[dev]"
+python -m pip install -e .
 
-PYTHONPATH=src python scripts/build_release_demo.py
-PYTHONPATH=src streamlit run dashboard/app.py
+python scripts/build_release_demo.py
+agent-release-gate --help
 ```
 
-The dashboard opens on **Release Impact Gate**, not on the legacy simulation pages.
+Choose optional components only when needed:
 
-Run the automated checks:
+| Install | Purpose |
+|---|---|
+| `python -m pip install -e ".[dashboard]"` | Release decision UI: Streamlit, Plotly, pandas |
+| `python -m pip install -e ".[api]"` | Runtime gateway service: FastAPI and Uvicorn |
+| `python -m pip install -e ".[api,postgres]"` | Gateway with PostgreSQL persistence |
+| `python -m pip install -e ".[research]"` | Simulation and model experiments, including scikit-learn, XGBoost and NetworkX |
+| `python -m pip install -e ".[dashboard,research]"` | All dashboard views, including workforce and deployment planning |
+
+After installing `[dashboard]`, run `streamlit run dashboard/app.py`.
+It opens on **Release Impact Gate**. The **Supporting research** workspace hosts the research
+foundation and explains how to add its optional dependencies.
+
+### Naming and compatibility
+
+The product and Python distribution are **Agent Release Impact Gate** / `agent-release-impact-gate`.
+`agent_mesh_risk_lab` is the historical Python import namespace, retained for existing integrations,
+notebooks, and saved model references. Current product commands are `agent-release-gate`,
+`agent-release-regression`, and `agent-release-api`; research commands use `agent-release-research-*`.
+The original eight `agent-mesh-*` commands remain backward-compatible aliases.
+
+### Continuous integration
+
+[`tests.yml`](.github/workflows/tests.yml) checks a clean **core-only install**, a
+**dashboard-only install**, and the **full suite with PostgreSQL**. The self-test succeeds when
+the known risky demonstration is blocked. A consumer release job fails on a blocked candidate;
+see [the integration guide](docs/ci_integration.md).
+
+Run the full contributor checks locally:
 
 ```bash
+python -m pip install -e ".[dev,dashboard,api,research,postgres]"
 ruff check src tests scripts dashboard
 pytest -q
 ```
@@ -134,7 +168,7 @@ export CANDIDATE_AGENT_URL="https://customer-adapter.example/deployments/refund-
 export APPROVED_AGENT_BUILD_DIGEST="sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 export CANDIDATE_AGENT_BUILD_DIGEST="sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
 
-agent-mesh-regression \
+agent-release-regression \
   configs/regression/refund_action_contracts.json \
   --policy configs/enterprise/policy.json \
   --agent-url "$APPROVED_AGENT_URL" \
@@ -143,7 +177,7 @@ agent-mesh-regression \
   --build-digest "$APPROVED_AGENT_BUILD_DIGEST" \
   --json-report outputs/release_gate/baseline_report.json
 
-agent-mesh-regression \
+agent-release-regression \
   configs/regression/refund_action_contracts.json \
   --policy configs/enterprise/policy.json \
   --agent-url "$CANDIDATE_AGENT_URL" \
@@ -238,14 +272,17 @@ scripts/build_release_demo.py        executes both demo builds and regenerates e
 outputs/release_gate/demo/           inspectable executed comparison
 pilot/                               external shadow-pilot intake contract and examples
 tests/                               unit, integration, dashboard, and evidence tests
+research/README.md                   supporting research entry point and evidence map
+.github/workflows/tests.yml          core, dashboard, and full integration checks
+site/                                static project walkthrough template
 ```
 
 ## Supporting research track
 
-The repository still contains the earlier synthetic research modules: a human-Agent workforce
+The [supporting research track](research/README.md) contains a human-Agent workforce
 simulation, reviewer-capacity replay, model-sensitivity experiments, policy-control experiments,
-and deployment-evidence checks. These are supporting evidence and scenario tools. They are no
-longer the primary product claim.
+and deployment-evidence checks. These scenario tools form the research foundation and are installed
+through `[research]`; the release gate operates independently of them.
 
 Reproducible highlights include 37,135 synthetic workforce events, five operating architectures,
 six stress scenarios, two local model families, Action Gateway tests, and reviewer-capacity curves.
