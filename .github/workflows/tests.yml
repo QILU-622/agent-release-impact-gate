@@ -1,4 +1,4 @@
-name: Agent release gate self-test
+name: Tests
 
 on:
   push:
@@ -11,6 +11,30 @@ permissions:
   contents: read
 
 jobs:
+  core-install:
+    name: Core install (no ML or web stack)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install ".[dev]"
+      - run: python scripts/check_core_install.py
+      - run: pytest -q tests/test_release_impact_gate.py tests/test_regression.py tests/test_action_gateway.py
+      - run: python scripts/build_release_demo.py --output-dir "${{ runner.temp }}/core-demo"
+
+  dashboard-install:
+    name: Dashboard install (no research extra)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install ".[dashboard]"
+      - run: python scripts/check_dashboard_install.py
+
   release-gate:
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -37,7 +61,7 @@ jobs:
           python-version: "3.12"
           cache: pip
       - name: Install the regression runner
-        run: python -m pip install -e ".[dev,postgres]"
+        run: python -m pip install -e ".[dev,dashboard,api,research,postgres]"
       - name: Check code quality
         run: ruff check src tests scripts dashboard
       - name: Run automated tests
@@ -46,7 +70,7 @@ jobs:
         run: mkdir -p "$RUNNER_TEMP/agent-release-evidence/regression"
       - name: Enforce Agent action contracts
         run: >-
-          agent-mesh-regression
+          agent-release-regression
           configs/regression/refund_action_contracts.json
           --policy configs/enterprise/policy.json
           --json-report "$RUNNER_TEMP/agent-release-evidence/regression/refund.json"

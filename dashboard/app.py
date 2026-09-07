@@ -11,8 +11,6 @@ from numbers import Real
 from pathlib import Path
 from typing import Any
 
-import joblib
-import networkx as nx
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
@@ -22,20 +20,8 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-from agent_mesh_risk_lab.benchmark import generate_benchmark
 from agent_mesh_risk_lab.catalog import CONTROLS, STRESSORS, WORKFLOWS
-from agent_mesh_risk_lab.deployment_planner import (
-    build_deployment_evidence_pack,
-    render_evidence_markdown,
-    summarize_external_evaluation,
-)
-from agent_mesh_risk_lab.evaluation import compute_metrics, production_score
-from agent_mesh_risk_lab.features import build_feature_frame
-from agent_mesh_risk_lab.graph import build_workflow_graph, graph_summary
-from agent_mesh_risk_lab.portfolio_experiments import optimize_empirical_portfolio
 from agent_mesh_risk_lab.schema import WorkflowTask
-from agent_mesh_risk_lab.simulator import run_experiment
-from agent_mesh_risk_lab.workforce_twin import build_backlog_timeline
 
 BLUE = "#2563EB"
 GOLD = "#D4A72C"
@@ -2937,7 +2923,7 @@ deployment_evidence = load_deployment_evidence()
 release_gate_outputs = load_release_gate_outputs()
 
 st.sidebar.markdown("## Agent Release Impact Gate")
-st.sidebar.caption("A release decision workflow, with the earlier simulation lab kept separate.")
+st.sidebar.caption("Release decisions supported by a reproducible research track.")
 workspace = st.sidebar.radio(
     "Workspace",
     ["Release workflow", "Supporting research"],
@@ -2973,7 +2959,30 @@ else:
         ],
     )
 st.sidebar.markdown("---")
-st.sidebar.caption("v1.1 • version-to-version release control")
+st.sidebar.caption("v2.1 • version-to-version release control")
+
+if workspace == "Supporting research" or page == "Enterprise Deployment Planner":
+    try:
+        import joblib
+        import networkx as nx
+
+        from agent_mesh_risk_lab.benchmark import generate_benchmark
+        from agent_mesh_risk_lab.deployment_planner import (
+            build_deployment_evidence_pack,
+            render_evidence_markdown,
+            summarize_external_evaluation,
+        )
+        from agent_mesh_risk_lab.evaluation import compute_metrics, production_score
+        from agent_mesh_risk_lab.features import build_feature_frame
+        from agent_mesh_risk_lab.graph import build_workflow_graph, graph_summary
+        from agent_mesh_risk_lab.portfolio_experiments import optimize_empirical_portfolio
+        from agent_mesh_risk_lab.simulator import run_experiment
+        from agent_mesh_risk_lab.workforce_twin import build_backlog_timeline
+    except ModuleNotFoundError as exc:
+        if exc.name not in {"joblib", "networkx", "numpy", "sklearn", "matplotlib", "xgboost"}:
+            raise
+        st.info('This view requires the research extra: python -m pip install -e ".[research]"')
+        st.stop()
 
 if page == "Release Impact Gate":
     release_impact_gate_page(release_gate_outputs)

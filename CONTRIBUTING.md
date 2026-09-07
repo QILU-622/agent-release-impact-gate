@@ -10,7 +10,7 @@ Python 3.12 or newer is required.
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-python -m pip install -e ".[dev,postgres]"
+python -m pip install -e ".[dev,dashboard,api,research,postgres]"
 ```
 
 Copy `.env.example` to `.env` only when local services require it. Use newly
@@ -23,7 +23,7 @@ Run the same core checks as the automated release gate:
 ```bash
 ruff check src tests scripts dashboard
 pytest -q
-agent-mesh-regression configs/regression/refund_action_contracts.json \
+agent-release-regression configs/regression/refund_action_contracts.json \
   --policy configs/enterprise/policy.json \
   --json-report outputs/regression/refund.json \
   --junit-report outputs/regression/refund.junit.xml

@@ -10,7 +10,7 @@ RUN groupadd --system agentmesh && useradd --system --gid agentmesh --home /app 
 
 COPY pyproject.toml README.md ./
 COPY src ./src
-RUN python -m pip install ".[postgres]"
+RUN python -m pip install ".[api,postgres]"
 
 COPY configs ./configs
 RUN chown -R agentmesh:agentmesh /app
