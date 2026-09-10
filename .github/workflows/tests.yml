@@ -21,7 +21,7 @@ jobs:
           python-version: "3.12"
       - run: python -m pip install ".[dev]"
       - run: python scripts/check_core_install.py
-      - run: pytest -q tests/test_release_impact_gate.py tests/test_regression.py tests/test_action_gateway.py
+      - run: pytest -q tests/test_release_impact_gate.py tests/test_regression.py tests/test_action_gateway.py tests/test_project_site.py
       - run: python scripts/build_release_demo.py --output-dir "${{ runner.temp }}/core-demo"
 
   dashboard-install:

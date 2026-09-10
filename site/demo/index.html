@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Inspect three refund-Agent upgrades: risky, partially repaired and repaired. An interactive replay backed by real release-gate decisions, using synthetic cases.">
+  <title>Release Lab · Agent Release Impact Gate</title>
+  <link rel="stylesheet" href="demo.css">
+  <script src="demo.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="shell">
+  <header><a class="brand" href="../"><span class="brand-icon" aria-hidden="true">↗</span> Agent Release Impact Gate</a><div class="header-actions"><span class="demo-tag" data-i18n="demo">INTERACTIVE DEMO</span><button id="language" type="button">中文</button><a href="https://github.com/QILU-622/agent-release-impact-gate" aria-label="GitHub repository">GitHub ↗</a></div></header>
+  <main id="main">
+    <div class="intro"><div><p class="eyebrow" data-i18n="eyebrow">RELEASE LAB / REFUND AGENT</p><h1 data-i18n="title">An upgrade. A decision.<br>A trail of evidence.</h1><p class="lead" data-i18n="intro">A refund Agent has changed. You own the release. Compare three versions and discover why “nothing unsafe executed” is not enough.</p></div><aside class="scope"><span class="dot"></span><strong data-i18n="scopeTitle">A safe, offline demonstration</strong><p data-i18n="scope">Six synthetic cases. No real customer data, live model calls or money movement. Results are computed by the Python engine at site build time and replayed here.</p></aside></div>
+    <div class="workspace">
+      <aside class="controls" aria-labelledby="choose-title">
+        <p class="eyebrow" data-i18n="step1">01 / CHOOSE A CANDIDATE</p><h2 id="choose-title" data-i18n="choose">What changed?</h2>
+        <div id="scenarios" role="group" aria-labelledby="choose-title"></div>
+        <div class="baseline"><span data-i18n="baseline">APPROVED BASELINE</span><code id="baseline-id">Loading…</code><p data-i18n="pinned">Same six contracts, gateway policy and workload mix for every comparison.</p></div>
+        <button class="run" id="run" type="button" disabled data-i18n="run">Inspect release decision →</button><p class="footnote" data-i18n="replay">Replay of engine-executed evidence. Not a live Agent run.</p>
+      </aside>
+      <div class="result-area">
+        <p class="eyebrow" data-i18n="step2">02 / INSPECT THE DECISION</p>
+        <div id="message" role="status" aria-live="polite" class="message"></div>
+        <div id="empty" class="empty"><span aria-hidden="true">⇄</span><h2 data-i18n="emptyTitle">A release is more than a safety score.</h2><p data-i18n="empty">Choose a candidate and inspect its decision. You will see the safety regressions, customer-service impact and evidence ceiling separately.</p><div class="empty-labels"><span data-i18n="safety">Safety contracts</span><span data-i18n="operations">Service continuity</span><span data-i18n="maturity">Evidence maturity</span></div></div>
+        <section id="result" hidden aria-labelledby="decision-title">
+          <div id="decision-card" class="decision-card"><div class="decision-top"><div><span class="eyebrow" data-i18n="authorized">MAXIMUM AUTHORIZED STAGE</span><h2 id="decision-title"></h2></div><span class="no-production" data-i18n="noProd">No production authorization</span></div><p id="verdict"></p><code id="candidate-id"></code><div class="ladder" aria-label="Release stages"><span data-stage="BLOCK">BLOCK</span><span data-stage="OFFLINE_ONLY">OFFLINE_ONLY</span><span data-stage="SHADOW">SHADOW</span><span data-stage="CANARY">CANARY</span></div><p id="ceiling" class="footnote"></p></div>
+          <div class="metrics"><article><span data-i18n="regressions">New regressions</span><strong id="regressions"></strong><small id="critical"></small></article><article><span data-i18n="denials">Extra denials / 1,000</span><strong id="denials"></strong><small data-i18n="weighted">Synthetic workload calculation</small></article><article><span data-i18n="unsafe">Unsafe allows / 1,000</span><strong id="unsafe"></strong><small data-i18n="notEnough">Zero alone does not approve release</small></article></div>
+          <div class="impact"><h3 data-i18n="impact">What happens to the work?</h3><div id="bars"></div><p class="footnote" data-i18n="weights">The six case weights add up to 1,000 illustrative tasks. These bars are scenario arithmetic, not 1,000 observed transactions or a customer forecast.</p></div>
+          <div class="next"><span class="eyebrow" data-i18n="nextLabel">RELEASE OWNER'S NEXT ACTION</span><p id="next-action"></p></div>
+          <div class="evidence"><div class="section-heading"><div><p class="eyebrow" data-i18n="step3">03 / FOLLOW THE EVIDENCE</p><h3 data-i18n="cases">Which tasks changed?</h3></div><span id="case-count"></span></div><p class="footnote" data-i18n="inspectHint">Select a task to compare the actual tool proposals and the gateway's response.</p><div id="case-list"></div><div id="case-detail"></div></div>
+          <details class="checks"><summary data-i18n="checks">All rule checks &amp; decision reasons</summary><ul id="reasons"></ul><div class="table-scroll"><table><thead><tr><th data-i18n="rule">Rule</th><th data-i18n="actual">Actual</th><th data-i18n="limit">Limit</th><th data-i18n="result">Result</th></tr></thead><tbody id="check-rows"></tbody></table></div><p class="footnote" data-i18n="rawEnglish">Original contract text, rule IDs and evidence are retained in English for auditability.</p></details>
+          <div class="downloads"><h3 data-i18n="takeaway">Take the evidence with you</h3><div id="downloads"></div><p class="footnote" id="build-time"></p><a href="manifest.json" data-i18n="manifest">Verify source hashes and build revision ↗</a></div>
+        </section>
+      </div>
+    </div>
+    <noscript><p class="notice">JavaScript is needed for the interactive replay. <a href="evidence/risky/release_decision.md">Read the risky build's decision memo</a>, <a href="evidence/partial/release_decision.md">partial repair</a> or <a href="evidence/fixed/release_decision.md">complete repair</a>.</p></noscript>
+  </main>
+  <footer><span data-i18n="footer">A reproducible engineering demo, not a safety certificate. Synthetic evidence can authorize at most OFFLINE_ONLY.</span><a href="../" data-i18n="back">Project background ↗</a></footer>
+</div>
+</body>
+</html>
