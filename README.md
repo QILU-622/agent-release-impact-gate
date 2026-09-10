@@ -2,6 +2,7 @@
 
 [![Tests](https://github.com/QILU-622/agent-release-impact-gate/actions/workflows/tests.yml/badge.svg)](https://github.com/QILU-622/agent-release-impact-gate/actions/workflows/tests.yml)
 [Project walkthrough](https://QILU-622.github.io/agent-release-impact-gate/) ·
+[Interactive demo](https://QILU-622.github.io/agent-release-impact-gate/demo/) ·
 [CI workflow](.github/workflows/tests.yml) · [Supporting research](research/README.md)
 
 > A release decision system for tool-using AI Agents. It compares an approved build with a
@@ -59,6 +60,28 @@ Inspect the generated evidence:
 - [`candidate_proposals.json`](outputs/release_gate/demo/candidate_proposals.json)
 
 ## Run the demo
+
+**No installation:** open the [interactive Release Lab](https://QILU-622.github.io/agent-release-impact-gate/demo/)
+([中文](https://QILU-622.github.io/agent-release-impact-gate/demo/?lang=zh)). Choose a risky upgrade,
+a partial repair, or a complete repair, then inspect the decision. Click individual tasks to compare
+tool proposals, gateway responses and contract failures. Download each version's evidence packet.
+
+The browser replays results computed by the real Python gateway and release engine **at site build
+time**. It does not invoke a live Agent, process customer data or move money. The complete repair
+restores the baseline's six captured proposals under a new artifact identity; it is not proof that
+an independently running model has been repaired. Every scenario uses the same synthetic workload
+and evidence ceiling. Even a clean result authorizes only `OFFLINE_ONLY`, never production.
+
+| Candidate | New / critical regressions | Extra denials per 1,000 | Authorized stage |
+|---|---:|---:|---|
+| Risky upgrade | 3 / 2 | 550 | BLOCK |
+| Refund amounts repaired, tool mismatch remains | 1 / 0 | 550 | BLOCK |
+| All six proposals restored | 0 / 0 | 0 | OFFLINE_ONLY |
+
+These numbers are generated and regression-tested, not client-side scores. To rebuild the whole
+demo after installing the core, run `python scripts/build_project_site.py --output-dir _site`, then
+`python -m http.server 8000 --bind 127.0.0.1 --directory _site` and open
+`http://127.0.0.1:8000/demo/`. See [the demo guide](docs/demo_guide.md) for a two-minute walkthrough.
 
 Python 3.12 or newer is required. Clone this repository and run from its root.
 The core install needs only HTTPX (Agent adapters) and Pydantic (validated contracts),
