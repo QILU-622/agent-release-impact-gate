@@ -21,7 +21,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Build from checked-in evidence
+      - name: Install the lightweight release engine
+        run: python -m pip install .
+      - name: Build walkthrough and execute interactive scenarios
         run: python scripts/build_project_site.py --output-dir _site
       - uses: actions/upload-pages-artifact@v3
         with:
