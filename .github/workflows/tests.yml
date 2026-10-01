@@ -15,7 +15,7 @@ jobs:
     name: Core install (no ML or web stack)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -28,7 +28,7 @@ jobs:
     name: Dashboard install (no research extra)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -55,7 +55,7 @@ jobs:
     env:
       AGENT_MESH_TEST_POSTGRES_URL: postgresql://agent_mesh_test:postgres-test-password@127.0.0.1:5432/agent_mesh_test
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
